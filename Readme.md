@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Роман Голубев](https://up.htmlacademy.ru/javascript/17/user/213549).
-* Наставник: `Неизвестно`.
+* Наставник: [Руфат Хасларов](https://htmlacademy.ru/profile/id372587).
 
 ---
 
