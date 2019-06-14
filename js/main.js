@@ -1,8 +1,16 @@
 'use strict';
 
+var TYPES = [
+  'palace',
+  'flat',
+  'house',
+  'bungalo'
+];
+
 var PINS_NUMBER = 8;
 
 var map = document.querySelector('.map');
+var similarListElement = map.querySelector('.map__pins');
 
 var pinTemplate = document.querySelector('#pin').content.querySelector('button');
 
@@ -24,14 +32,14 @@ var generatePinsData = function () {
   for (var i = 1; i <= PINS_NUMBER; i++) {
     pins.push({
       author: {
-        avatar: 'img/avatars/user0[i].png'
+        avatar: 'img/avatars/user0' + i + '.png'
       },
       offer: {
-        type: ['palace', 'flat', 'house', 'bungalo']
+        type: getRandomElement(TYPES)
       },
       location: {
-        x: getRandomElement(),
-        y: getRandomElement()
+        x: getRandomNumber(0, 1200),
+        y: getRandomNumber(130, 630)
       }
 
       // "author": {
@@ -55,6 +63,9 @@ var renderPin = function (pin) {
   var pinElement = pinTemplate.cloneNode(true);
 
   pinElement.querySelector('img').setAttribute('src', pin.author.avatar);
+  pinElement.querySelector('img').setAttribute('alt', 'Заголовок объявления');
+  //pinElement.querySelector('button').setAttribute('style', 'left: 150px');
+  //pinElement.querySelector('button').setAttribute('style', 'top: ' + pin.location.y + 'px;');
 
   return pinElement;
 };
@@ -62,9 +73,10 @@ var renderPin = function (pin) {
 var renderPins = function (array) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < array.length; i++) {
-    fragment.appendChild(renderWizard(array[i]));
+    fragment.appendChild(renderPin(array[i]));
   }
   similarListElement.appendChild(fragment);
 };
 
-renderPins(generateWizardsData());
+renderPins(generatePinsData());
+console.log(renderPins(generatePinsData()));
