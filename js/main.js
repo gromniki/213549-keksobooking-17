@@ -4,7 +4,7 @@ var TYPES = [
   'palace',
   'flat',
   'house',
-  'bungalo'
+  'bungalo',
 ];
 
 var PINS_NUMBER = 8;
@@ -12,9 +12,7 @@ var PINS_NUMBER = 8;
 var map = document.querySelector('.map');
 var similarListElement = map.querySelector('.map__pins');
 
-var pinTemplate = document.querySelector('#pin').content.querySelector('button');
-
-console.log(pinTemplate);
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 map.classList.remove('map--faded');
 
@@ -32,27 +30,15 @@ var generatePinsData = function () {
   for (var i = 1; i <= PINS_NUMBER; i++) {
     pins.push({
       author: {
-        avatar: 'img/avatars/user0' + i + '.png'
+        avatar: 'img/avatars/user0' + i + '.png',
       },
       offer: {
-        type: getRandomElement(TYPES)
+        type: getRandomElement(TYPES),
       },
       location: {
         x: getRandomNumber(0, 1200),
-        y: getRandomNumber(130, 630)
-      }
-
-      // "author": {
-      //   "avatar": строка, адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
-      // },
-      //   "offer": {
-      //     "type": строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-      //   },
-      //
-      //   "location": {
-      //     "x": случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
-      //     "y": случайное число, координата y метки на карте от 130 до 630.
-      //   }
+        y: getRandomNumber(130, 630),
+      },
     });
   }
 
@@ -64,8 +50,8 @@ var renderPin = function (pin) {
 
   pinElement.querySelector('img').setAttribute('src', pin.author.avatar);
   pinElement.querySelector('img').setAttribute('alt', 'Заголовок объявления');
-  //pinElement.querySelector('button').setAttribute('style', 'left: 150px');
-  //pinElement.querySelector('button').setAttribute('style', 'top: ' + pin.location.y + 'px;');
+  pinElement.style.left = pin.location.x + 'px';
+  pinElement.style.top = pin.location.y + 'px';
 
   return pinElement;
 };
@@ -79,4 +65,3 @@ var renderPins = function (array) {
 };
 
 renderPins(generatePinsData());
-console.log(renderPins(generatePinsData()));
