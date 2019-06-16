@@ -14,8 +14,6 @@ var similarListElement = map.querySelector('.map__pins');
 
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-map.classList.remove('map--faded');
-
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -47,9 +45,10 @@ var generatePinsData = function () {
 
 var renderPin = function (pin) {
   var pinElement = pinTemplate.cloneNode(true);
+  var img = pinElement.querySelector('img');
 
-  pinElement.querySelector('img').setAttribute('src', pin.author.avatar);
-  pinElement.querySelector('img').setAttribute('alt', 'Заголовок объявления');
+  img.setAttribute('src', pin.author.avatar);
+  img.setAttribute('alt', 'Заголовок объявления');
   pinElement.style.left = pin.location.x + 'px';
   pinElement.style.top = pin.location.y + 'px';
 
@@ -65,3 +64,5 @@ var renderPins = function (array) {
 };
 
 renderPins(generatePinsData());
+
+map.classList.remove('map--faded');
