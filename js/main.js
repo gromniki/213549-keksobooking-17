@@ -10,6 +10,42 @@ var TYPES = [
 var PINS_NUMBER = 8;
 
 var map = document.querySelector('.map');
+var mainPin = map.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+var mapFilters = map.querySelectorAll('.map__filter');
+var fieldsetsForm = document.querySelectorAll('fieldset');
+
+var fieldAddress = document.querySelector('#address');
+
+var setDisabled = function (array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].setAttribute('disabled', '');
+  }
+
+  return array;
+};
+
+var delDisabled = function (array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].removeAttribute('disabled', '');
+  }
+
+  return array;
+};
+
+setDisabled(mapFilters);
+setDisabled(fieldsetsForm);
+
+mainPin.addEventListener('click', function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+
+  delDisabled(mapFilters);
+  delDisabled(fieldsetsForm);
+
+  renderPins(generatePinsData());
+});
+
 var similarListElement = map.querySelector('.map__pins');
 
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -62,7 +98,3 @@ var renderPins = function (array) {
   }
   similarListElement.appendChild(fragment);
 };
-
-renderPins(generatePinsData());
-
-map.classList.remove('map--faded');
