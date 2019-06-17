@@ -4,7 +4,7 @@ var TYPES = [
   'palace',
   'flat',
   'house',
-  'bungalo',
+  'bungalo'
 ];
 
 var PINS_NUMBER = 8;
@@ -43,6 +43,10 @@ mainPin.addEventListener('click', function () {
   delDisabled(mapFilters);
   delDisabled(fieldsetsForm);
 
+  mainPin.addEventListener('mouseup', function () {
+    console.log(mainPin.getAttribute('style'));
+  });
+
   renderPins(generatePinsData());
 });
 
@@ -64,15 +68,15 @@ var generatePinsData = function () {
   for (var i = 1; i <= PINS_NUMBER; i++) {
     pins.push({
       author: {
-        avatar: 'img/avatars/user0' + i + '.png',
+        avatar: 'img/avatars/user0' + i + '.png'
       },
       offer: {
-        type: getRandomElement(TYPES),
+        type: getRandomElement(TYPES)
       },
       location: {
         x: getRandomNumber(0, 1200),
-        y: getRandomNumber(130, 630),
-      },
+        y: getRandomNumber(130, 630)
+      }
     });
   }
 
