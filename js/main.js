@@ -43,8 +43,15 @@ mainPin.addEventListener('click', function () {
   delDisabled(mapFilters);
   delDisabled(fieldsetsForm);
 
+  var top = parseInt(mainPin.style.top);
+  var left = parseInt(mainPin.style.left);
+
+  fieldAddress.value = left + ', ' + top;
+
   mainPin.addEventListener('mouseup', function () {
-    console.log(mainPin.getAttribute('style'));
+
+    console.log(mainPin.style.top);
+    console.log(mainPin.style.left);
   });
 
   renderPins(generatePinsData());
