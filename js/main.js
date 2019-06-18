@@ -1,15 +1,13 @@
 'use strict';
 
-var MAIN_PIN_WIDTH = 65;
-var MAIN_PIN_HEIGHT = 65;
-var centerMainPinX = MAIN_PIN_WIDTH / 2;
-var centerMainPinY = MAIN_PIN_HEIGHT / 2;
+var MAIN_PIN_WIDTH = 65 / 2;
+var MAIN_PIN_HEIGHT = 65 / 2;
 
 var TYPES = [
   'palace',
   'flat',
   'house',
-  'bungalo'
+  'bungalo',
 ];
 
 var PINS_NUMBER = 8;
@@ -19,39 +17,54 @@ var mainPin = map.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var mapFilters = map.querySelectorAll('.map__filter');
 var fieldsetsForm = document.querySelectorAll('fieldset');
-
 var fieldAddress = document.querySelector('#address');
 
-var setDisabled = function (array) {
+// var setDisabled = function (array) {
+//   for (var i = 0; i < array.length; i++) {
+//     array[i].setAttribute('disabled', '');
+//   }
+//
+//   return array;
+// };
+//
+// var delDisabled = function (array) {
+//   for (var i = 0; i < array.length; i++) {
+//     array[i].removeAttribute('disabled', '');
+//   }
+//
+//   return array;
+// };
+
+var defineDisabled = function (array, isDisabled) {
   for (var i = 0; i < array.length; i++) {
-    array[i].setAttribute('disabled', '');
+    if (isDisabled) {
+      array[i].removeAttribute('disabled', '');
+    } else {
+      array[i].setAttribute('disabled', '');
+    }
   }
 
   return array;
 };
 
-var delDisabled = function (array) {
-  for (var i = 0; i < array.length; i++) {
-    array[i].removeAttribute('disabled', '');
-  }
+defineDisabled(mapFilters, false);
+defineDisabled(fieldsetsForm, false);
 
-  return array;
+var topMainPin = parseInt(mainPin.style.top, 10) + MAIN_PIN_HEIGHT;
+var leftMainPin = parseInt(mainPin.style.left, 10) + MAIN_PIN_WIDTH;
+
+var setCoords = function () {
+  fieldAddress.value = leftMainPin + ', ' + topMainPin;
 };
 
-setDisabled(mapFilters);
-setDisabled(fieldsetsForm);
-
-var topMainPin = parseInt(mainPin.style.top, 10) + centerMainPinY;
-var leftMainPin = parseInt(mainPin.style.left, 10) + centerMainPinX;
-
-fieldAddress.value = leftMainPin + ', ' + topMainPin;
+setCoords();
 
 mainPin.addEventListener('click', function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
-  delDisabled(mapFilters);
-  delDisabled(fieldsetsForm);
+  defineDisabled(mapFilters, true);
+  defineDisabled(fieldsetsForm, true);
 
   renderPins(generatePinsData());
 });
@@ -74,15 +87,15 @@ var generatePinsData = function () {
   for (var i = 1; i <= PINS_NUMBER; i++) {
     pins.push({
       author: {
-        avatar: 'img/avatars/user0' + i + '.png'
+        avatar: 'img/avatars/user0' + i + '.png',
       },
       offer: {
-        type: getRandomElement(TYPES)
+        type: getRandomElement(TYPES),
       },
       location: {
         x: getRandomNumber(0, 1200),
-        y: getRandomNumber(130, 630)
-      }
+        y: getRandomNumber(130, 630),
+      },
     });
   }
 
