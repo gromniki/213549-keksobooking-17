@@ -1,5 +1,14 @@
 'use strict';
 
+var MAIN_PIN_X = document.querySelector('.map__pin--main').getAttribute('width');
+var MAIN_PIN_Y = document.querySelector('.map__pin--main').getAttribute('height');
+var centerMainPinX = MAIN_PIN_X / 2;
+var centerMainPinY = MAIN_PIN_Y / 2;
+
+console.log(centerMainPinX);
+console.log(MAIN_PIN_Y);
+
+
 var TYPES = [
   'palace',
   'flat',
@@ -16,6 +25,12 @@ var mapFilters = map.querySelectorAll('.map__filter');
 var fieldsetsForm = document.querySelectorAll('fieldset');
 
 var fieldAddress = document.querySelector('#address');
+
+var mainPinSv = map.querySelector('.map__pin--main svg');
+
+// console.log(mainPinSv.width);
+//
+// console.log(mainPinSv);
 
 var setDisabled = function (array) {
   for (var i = 0; i < array.length; i++) {
@@ -36,17 +51,17 @@ var delDisabled = function (array) {
 setDisabled(mapFilters);
 setDisabled(fieldsetsForm);
 
+var top = parseInt(mainPin.style.top, 10);
+var left = parseInt(mainPin.style.left, 10);
+
+fieldAddress.value = left + ', ' + top;
+
 mainPin.addEventListener('click', function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
   delDisabled(mapFilters);
   delDisabled(fieldsetsForm);
-
-  var top = parseInt(mainPin.style.top);
-  var left = parseInt(mainPin.style.left);
-
-  fieldAddress.value = left + ', ' + top;
 
   mainPin.addEventListener('mouseup', function () {
 
