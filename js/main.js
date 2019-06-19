@@ -7,7 +7,7 @@ var TYPES = [
   'palace',
   'flat',
   'house',
-  'bungalo',
+  'bungalo'
 ];
 
 var PINS_NUMBER = 8;
@@ -19,21 +19,8 @@ var mapFilters = map.querySelectorAll('.map__filter');
 var fieldsetsForm = document.querySelectorAll('fieldset');
 var fieldAddress = document.querySelector('#address');
 
-// var setDisabled = function (array) {
-//   for (var i = 0; i < array.length; i++) {
-//     array[i].setAttribute('disabled', '');
-//   }
-//
-//   return array;
-// };
-//
-// var delDisabled = function (array) {
-//   for (var i = 0; i < array.length; i++) {
-//     array[i].removeAttribute('disabled', '');
-//   }
-//
-//   return array;
-// };
+var similarListElement = map.querySelector('.map__pins');
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var defineDisabled = function (array, isDisabled) {
   for (var i = 0; i < array.length; i++) {
@@ -47,31 +34,12 @@ var defineDisabled = function (array, isDisabled) {
   return array;
 };
 
-defineDisabled(mapFilters, false);
-defineDisabled(fieldsetsForm, false);
-
-var topMainPin = parseInt(mainPin.style.top, 10) + MAIN_PIN_HEIGHT;
-var leftMainPin = parseInt(mainPin.style.left, 10) + MAIN_PIN_WIDTH;
-
 var setCoords = function () {
+  var topMainPin = parseInt(mainPin.style.top, 10) + MAIN_PIN_HEIGHT;
+  var leftMainPin = parseInt(mainPin.style.left, 10) + MAIN_PIN_WIDTH;
+
   fieldAddress.value = leftMainPin + ', ' + topMainPin;
 };
-
-setCoords();
-
-mainPin.addEventListener('click', function () {
-  map.classList.remove('map--faded');
-  adForm.classList.remove('ad-form--disabled');
-
-  defineDisabled(mapFilters, true);
-  defineDisabled(fieldsetsForm, true);
-
-  renderPins(generatePinsData());
-});
-
-var similarListElement = map.querySelector('.map__pins');
-
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -87,15 +55,15 @@ var generatePinsData = function () {
   for (var i = 1; i <= PINS_NUMBER; i++) {
     pins.push({
       author: {
-        avatar: 'img/avatars/user0' + i + '.png',
+        avatar: 'img/avatars/user0' + i + '.png'
       },
       offer: {
-        type: getRandomElement(TYPES),
+        type: getRandomElement(TYPES)
       },
       location: {
         x: getRandomNumber(0, 1200),
-        y: getRandomNumber(130, 630),
-      },
+        y: getRandomNumber(130, 630)
+      }
     });
   }
 
@@ -121,3 +89,18 @@ var renderPins = function (array) {
   }
   similarListElement.appendChild(fragment);
 };
+
+mainPin.addEventListener('click', function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+
+  defineDisabled(mapFilters, true);
+  defineDisabled(fieldsetsForm, true);
+
+  renderPins(generatePinsData());
+});
+
+defineDisabled(mapFilters, false);
+defineDisabled(fieldsetsForm, false);
+
+setCoords();
