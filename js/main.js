@@ -90,7 +90,7 @@ var renderPins = function (array) {
   similarListElement.appendChild(fragment);
 };
 
-mainPin.addEventListener('click', function () {
+function onMapPinMainClick() {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
@@ -98,7 +98,10 @@ mainPin.addEventListener('click', function () {
   defineDisabled(fieldsetsForm, true);
 
   renderPins(generatePinsData());
-});
+  mainPin.removeEventListener('click', onMapPinMainClick);
+}
+
+mainPin.addEventListener('click', onMapPinMainClick);
 
 defineDisabled(mapFilters, false);
 defineDisabled(fieldsetsForm, false);
