@@ -90,7 +90,29 @@ var renderPins = function (array) {
   similarListElement.appendChild(fragment);
 };
 
-mainPin.addEventListener('click', function () {
+// mainPin.addEventListener('click', function (evt) {
+//   map.classList.remove('map--faded');
+//   adForm.classList.remove('ad-form--disabled');
+//
+//   defineDisabled(mapFilters, true);
+//   defineDisabled(fieldsetsForm, true);
+//
+//   renderPins(generatePinsData());
+//
+//   evt.target.removeEventListener('click', function () {
+//     renderPins(generatePinsData());
+//   });
+// });
+
+/*
+* node.addEventListener(type, function(e) {
+		// remove event
+		e.target.removeEventListener(e.type, arguments.callee);
+		// call handler
+		return callback(e);
+	});*/
+
+var takos = function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
@@ -98,7 +120,10 @@ mainPin.addEventListener('click', function () {
   defineDisabled(fieldsetsForm, true);
 
   renderPins(generatePinsData());
-});
+};
+
+mainPin.addEventListener('click', takos);
+mainPin.removeEventListener('click', takos);
 
 defineDisabled(mapFilters, false);
 defineDisabled(fieldsetsForm, false);
