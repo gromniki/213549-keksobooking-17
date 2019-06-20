@@ -61,7 +61,7 @@ var generatePinsData = function () {
         type: getRandomElement(TYPES)
       },
       location: {
-        x: getRandomNumber(0, 1200),
+        x: getRandomNumber(0, 1130),
         y: getRandomNumber(130, 630)
       }
     });
@@ -98,6 +98,7 @@ function onMapPinMainClick() {
   defineDisabled(fieldsetsForm, true);
 
   renderPins(generatePinsData());
+
   mainPin.removeEventListener('click', onMapPinMainClick);
 }
 
