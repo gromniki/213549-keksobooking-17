@@ -10,6 +10,17 @@ var TYPES = [
   'bungalo'
 ];
 
+var CONFIG = {
+  width: {
+    min: 0,
+    max: 1130
+  },
+  height: {
+    min: 130,
+    max: 630
+  }
+};
+
 var PINS_NUMBER = 8;
 
 var map = document.querySelector('.map');
@@ -22,7 +33,7 @@ var fieldAddress = document.querySelector('#address');
 var similarListElement = map.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-var defineDisabled = function (array, isDisabled) {
+var setDisabled = function (array, isDisabled) {
   for (var i = 0; i < array.length; i++) {
     if (isDisabled) {
       array[i].removeAttribute('disabled', '');
@@ -34,7 +45,7 @@ var defineDisabled = function (array, isDisabled) {
   return array;
 };
 
-var setCoords = function () {
+var setAddressValue = function () {
   var topMainPin = parseInt(mainPin.style.top, 10) + MAIN_PIN_HEIGHT;
   var leftMainPin = parseInt(mainPin.style.left, 10) + MAIN_PIN_WIDTH;
 
@@ -61,8 +72,8 @@ var generatePinsData = function () {
         type: getRandomElement(TYPES)
       },
       location: {
-        x: getRandomNumber(0, 1130),
-        y: getRandomNumber(130, 630)
+        x: getRandomNumber(CONFIG.width.min, CONFIG.width.max),
+        y: getRandomNumber(CONFIG.height.min, CONFIG.height.max)
       }
     });
   }
@@ -94,8 +105,8 @@ function onMapPinMainClick() {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
-  defineDisabled(mapFilters, true);
-  defineDisabled(fieldsetsForm, true);
+  setDisabled(mapFilters, true);
+  setDisabled(fieldsetsForm, true);
 
   renderPins(generatePinsData());
 
@@ -104,7 +115,7 @@ function onMapPinMainClick() {
 
 mainPin.addEventListener('click', onMapPinMainClick);
 
-defineDisabled(mapFilters, false);
-defineDisabled(fieldsetsForm, false);
+setDisabled(mapFilters, false);
+setDisabled(fieldsetsForm, false);
 
-setCoords();
+setAddressValue();
