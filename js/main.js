@@ -3,12 +3,28 @@
 var MAIN_PIN_WIDTH = 65 / 2;
 var MAIN_PIN_HEIGHT = 65 / 2;
 
-var TYPES = [
-  'palace',
-  'flat',
-  'house',
-  'bungalo'
-];
+var TYPES = [{
+  bungalo: {
+    price: {
+      min: 0
+    }
+  },
+  flat: {
+    price: {
+      min: 1000
+    }
+  },
+  house: {
+    price: {
+      min: 5000
+    }
+  },
+  palace: {
+    price: {
+      min: 10000
+    }
+  }
+}];
 
 var CONFIG = {
   width: {
@@ -32,6 +48,48 @@ var fieldAddress = document.querySelector('#address');
 
 var similarListElement = map.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
+var types = adForm.querySelector('#type');
+var price = adForm.querySelector('#price');
+var timeIn = adForm.querySelector('#timein');
+var timeOut = adForm.querySelector('#timeout');
+
+// При изменении поля select, изменять значение плэйсхолдера в поле price
+// в соответствии с типом жилья
+types.addEventListener('change', function () {
+  var valueType = types.value;
+
+  switch (valueType) {
+    case 'bungalo':
+      price.setAttribute('placeholder', TYPES[0].bungalo.price.min);
+      price.setAttribute('min', TYPES[0].bungalo.price.min);
+      break;
+    case 'flat':
+      price.setAttribute('placeholder', TYPES[0].flat.price.min);
+      price.setAttribute('min', TYPES[0].flat.price.min);
+      break;
+    case 'house':
+      price.setAttribute('placeholder', TYPES[0].house.price.min);
+      price.setAttribute('min', TYPES[0].house.price.min);
+      break;
+    case 'palace':
+      price.setAttribute('placeholder', TYPES[0].palace.price.min);
+      price.setAttribute('min', TYPES[0].palace.price.min);
+      break;
+    default:
+      price.setAttribute('placeholder', TYPES[0].house.price.min);
+      price.setAttribute('min', TYPES[0].house.price.min);
+      break;
+  }
+});
+
+var onTimeChange = function (evt) {
+  var select = evt.target === timeIn ? timeOut : timeIn;
+  select.value = evt.target.value;
+};
+
+timeIn.addEventListener('change', onTimeChange);
+timeOut.addEventListener('change', onTimeChange);
 
 var setDisabled = function (array, isDisabled) {
   for (var i = 0; i < array.length; i++) {
