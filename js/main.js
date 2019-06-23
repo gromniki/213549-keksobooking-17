@@ -3,28 +3,19 @@
 var MAIN_PIN_WIDTH = 65 / 2;
 var MAIN_PIN_HEIGHT = 65 / 2;
 
-var TYPES = [{
-  bungalo: {
-    price: {
-      min: 0
-    }
-  },
-  flat: {
-    price: {
-      min: 1000
-    }
-  },
-  house: {
-    price: {
-      min: 5000
-    }
-  },
-  palace: {
-    price: {
-      min: 10000
-    }
-  }
-}];
+var ACCOMODATION_TYPES = {
+  Bungalo: 'Бунгало',
+  Flat: 'Квартира',
+  House: 'Дом',
+  Palace: 'Дворец',
+};
+
+var MIN_PRICES = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000
+};
 
 var CONFIG = {
   width: {
@@ -61,24 +52,24 @@ types.addEventListener('change', function () {
 
   switch (valueType) {
     case 'bungalo':
-      price.setAttribute('placeholder', TYPES[0].bungalo.price.min);
-      price.setAttribute('min', TYPES[0].bungalo.price.min);
+      price.setAttribute('placeholder', MIN_PRICES.bungalo);
+      price.setAttribute('min', MIN_PRICES.bungalo);
       break;
     case 'flat':
-      price.setAttribute('placeholder', TYPES[0].flat.price.min);
-      price.setAttribute('min', TYPES[0].flat.price.min);
+      price.setAttribute('placeholder', MIN_PRICES.flat);
+      price.setAttribute('min', MIN_PRICES.flat);
       break;
     case 'house':
-      price.setAttribute('placeholder', TYPES[0].house.price.min);
-      price.setAttribute('min', TYPES[0].house.price.min);
+      price.setAttribute('placeholder', MIN_PRICES.house);
+      price.setAttribute('min', MIN_PRICES.house);
       break;
     case 'palace':
-      price.setAttribute('placeholder', TYPES[0].palace.price.min);
-      price.setAttribute('min', TYPES[0].palace.price.min);
+      price.setAttribute('placeholder', MIN_PRICES.palace);
+      price.setAttribute('min', MIN_PRICES.palace);
       break;
     default:
-      price.setAttribute('placeholder', TYPES[0].house.price.min);
-      price.setAttribute('min', TYPES[0].house.price.min);
+      price.setAttribute('placeholder', MIN_PRICES.house);
+      price.setAttribute('min', MIN_PRICES.house);
       break;
   }
 });
