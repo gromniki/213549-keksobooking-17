@@ -11,10 +11,10 @@ var TYPES = [
 ];
 
 var MIN_PRICES = {
-  bungalo: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000
+  Bungalo: 0,
+  Flat: 1000,
+  House: 5000,
+  Palace: 10000
 };
 
 var CONFIG = {
