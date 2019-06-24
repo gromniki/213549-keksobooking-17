@@ -3,12 +3,12 @@
 var MAIN_PIN_WIDTH = 65 / 2;
 var MAIN_PIN_HEIGHT = 65 / 2;
 
-var ACCOMODATION_TYPES = {
-  Bungalo: 'Бунгало',
-  Flat: 'Квартира',
-  House: 'Дом',
-  Palace: 'Дворец',
-};
+var TYPES = [
+  'Bungalo',
+  'Flat',
+  'House',
+  'Palace'
+];
 
 var MIN_PRICES = {
   bungalo: 0,
