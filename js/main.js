@@ -52,24 +52,24 @@ types.addEventListener('change', function () {
 
   switch (valueType) {
     case 'bungalo':
-      price.setAttribute('placeholder', MIN_PRICES.bungalo);
-      price.setAttribute('min', MIN_PRICES.bungalo);
+      price.setAttribute('placeholder', MIN_PRICES.Bungalo);
+      price.setAttribute('min', MIN_PRICES.Bungalo);
       break;
     case 'flat':
-      price.setAttribute('placeholder', MIN_PRICES.flat);
-      price.setAttribute('min', MIN_PRICES.flat);
+      price.setAttribute('placeholder', MIN_PRICES.Flat);
+      price.setAttribute('min', MIN_PRICES.Flat);
       break;
     case 'house':
-      price.setAttribute('placeholder', MIN_PRICES.house);
-      price.setAttribute('min', MIN_PRICES.house);
+      price.setAttribute('placeholder', MIN_PRICES.House);
+      price.setAttribute('min', MIN_PRICES.House);
       break;
     case 'palace':
-      price.setAttribute('placeholder', MIN_PRICES.palace);
-      price.setAttribute('min', MIN_PRICES.palace);
+      price.setAttribute('placeholder', MIN_PRICES.Palace);
+      price.setAttribute('min', MIN_PRICES.Palace);
       break;
     default:
-      price.setAttribute('placeholder', MIN_PRICES.house);
-      price.setAttribute('min', MIN_PRICES.house);
+      price.setAttribute('placeholder', MIN_PRICES.House);
+      price.setAttribute('min', MIN_PRICES.House);
       break;
   }
 });
