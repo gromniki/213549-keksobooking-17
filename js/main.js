@@ -49,29 +49,8 @@ var timeOut = adForm.querySelector('#timeout');
 // в соответствии с типом жилья
 types.addEventListener('change', function () {
   var valueType = types.value;
-
-  switch (valueType) {
-    case 'bungalo':
-      price.setAttribute('placeholder', MIN_PRICES.Bungalo);
-      price.setAttribute('min', MIN_PRICES.Bungalo);
-      break;
-    case 'flat':
-      price.setAttribute('placeholder', MIN_PRICES.Flat);
-      price.setAttribute('min', MIN_PRICES.Flat);
-      break;
-    case 'house':
-      price.setAttribute('placeholder', MIN_PRICES.House);
-      price.setAttribute('min', MIN_PRICES.House);
-      break;
-    case 'palace':
-      price.setAttribute('placeholder', MIN_PRICES.Palace);
-      price.setAttribute('min', MIN_PRICES.Palace);
-      break;
-    default:
-      price.setAttribute('placeholder', MIN_PRICES.House);
-      price.setAttribute('min', MIN_PRICES.House);
-      break;
-  }
+  price.setAttribute('placeholder', MIN_PRICES[valueType]);
+  price.setAttribute('min', MIN_PRICES[valueType]);
 });
 
 var onTimeChange = function (evt) {
