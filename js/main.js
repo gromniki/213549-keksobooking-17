@@ -3,6 +3,9 @@
 var MAIN_PIN_WIDTH = 65 / 2;
 var MAIN_PIN_HEIGHT = 65 / 2;
 
+// var MAIN_PIN_WIDTH_MOVE = MAIN_PIN_WIDTH;
+// var MAIN_PIN_HEIGHT_MOVE = 65 + 22;
+
 var TYPES = [
   'Bungalo',
   'Flat',
@@ -20,7 +23,7 @@ var MIN_PRICES = {
 var CONFIG = {
   width: {
     min: 0,
-    max: 1130
+    max: 1200
   },
   height: {
     min: 130,
@@ -129,21 +132,97 @@ var renderPins = function (array) {
   similarListElement.appendChild(fragment);
 };
 
-function onMapPinMainClick() {
-  map.classList.remove('map--faded');
-  adForm.classList.remove('ad-form--disabled');
+// function onMapPinMainClick() {
+//   map.classList.remove('map--faded');
+//   adForm.classList.remove('ad-form--disabled');
+//
+//   setDisabled(mapFilters, true);
+//   setDisabled(fieldsetsForm, true);
+//
+//   renderPins(generatePinsData());
+//
+//   mainPin.removeEventListener('click', onMapPinMainClick);
+// }
+//
+// mainPin.addEventListener('click', onMapPinMainClick);
 
-  setDisabled(mapFilters, true);
-  setDisabled(fieldsetsForm, true);
+// Функция для задания границ карты
+var setMapLimitCoords = function (min, max, n) {
+  if (n < min) {
+    n = min;
+  } else if (n > max) {
+    n = max;
+  }
+  return n;
+};
 
-  renderPins(generatePinsData());
+mainPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  var startCoords = {
+    x: evt.clientX,
+    y: setMapLimitCoords(CONFIG.height.min, CONFIG.height.max, evt.clientY)
+  };
 
-  mainPin.removeEventListener('click', onMapPinMainClick);
-}
+  // Функция перемещения главного пина по карте
+  var moveMainPin = function (mouseEvt) {
+    var shift = {
+      x: startCoords.x - mouseEvt.clientX,
+      y: setMapLimitCoords(CONFIG.height.min, CONFIG.height.max, startCoords.y - mouseEvt.clientY)
+    };
+    startCoords = {
+      x: mouseEvt.clientX,
+      y: setMapLimitCoords(CONFIG.height.min, CONFIG.height.max, mouseEvt.clientY)
+    };
+    mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
 
-mainPin.addEventListener('click', onMapPinMainClick);
+    // console.log(mainPin.offsetTop - shift.y);
+    // console.log(mainPin.offsetLeft - shift.x);
+  };
+
+  var dragged = false;
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    dragged = true;
+    moveMainPin(moveEvt);
+    setAddressValue();
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    setDisabled(mapFilters, true);
+    setDisabled(fieldsetsForm, true);
+    renderPins(generatePinsData());
+
+    if (dragged) {
+      moveMainPin(upEvt);
+      setAddressValue();
+    }
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
 
 setDisabled(mapFilters, false);
 setDisabled(fieldsetsForm, false);
 
 setAddressValue();
+
+// var MAP_PIN_WIDTH = mainPin.offsetWidth;
+// var MAP_PIN_X = mainPin.offsetLeft;
+// var MAP_PIN_Y = mainPin.offsetTop;
+// var MAP_PIN_HEIGHT = mainPin.offsetHeight;
+
+// console.log('Размер пина ' + MAP_PIN_WIDTH);
+// console.log('Размер пина ' + MAP_PIN_HEIGHT);
+// console.log('Размер пина по X ' + MAP_PIN_X);
+// console.log('Размер пина по Y ' + MAP_PIN_Y);
+//
+// console.log('Карта. Start X: ' + map.style.top);
+// console.log('Карта. Start Y: ' + map.style.left);
