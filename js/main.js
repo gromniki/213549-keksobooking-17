@@ -3,8 +3,8 @@
 var MAIN_PIN_WIDTH = 65 / 2;
 var MAIN_PIN_HEIGHT = 65 / 2;
 
-// var MAIN_PIN_WIDTH_MOVE = MAIN_PIN_WIDTH;
-// var MAIN_PIN_HEIGHT_MOVE = 65 + 22;
+var MAIN_PIN_WIDTH_MOVE = MAIN_PIN_WIDTH;
+var MAIN_PIN_HEIGHT_MOVE = 65 + 22;
 
 var TYPES = [
   'Bungalo',
@@ -76,12 +76,19 @@ var setDisabled = function (array, isDisabled) {
   return array;
 };
 
-var setAddressValue = function () {
-  var topMainPin = parseInt(mainPin.style.top, 10) + MAIN_PIN_HEIGHT;
-  var leftMainPin = parseInt(mainPin.style.left, 10) + MAIN_PIN_WIDTH;
+var setAddressValue = function (width, height) {
+  var topMainPin = parseInt(mainPin.style.top, 10) + height;
+  var leftMainPin = parseInt(mainPin.style.left, 10) + width;
 
   fieldAddress.value = leftMainPin + ', ' + topMainPin;
 };
+
+// var setAddressValue = function (width, height) {
+//   var topMainPin = parseInt(mainPin.style.top, 10) + MAIN_PIN_HEIGHT;
+//   var leftMainPin = parseInt(mainPin.style.left, 10) + MAIN_PIN_WIDTH;
+//
+//   fieldAddress.value = leftMainPin + ', ' + topMainPin;
+// };
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -160,32 +167,50 @@ mainPin.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
   var startCoords = {
     x: evt.clientX,
-    y: setMapLimitCoords(CONFIG.height.min, CONFIG.height.max, evt.clientY)
+    y: evt.clientY
   };
 
   // Функция перемещения главного пина по карте
   var moveMainPin = function (mouseEvt) {
     var shift = {
       x: startCoords.x - mouseEvt.clientX,
-      y: setMapLimitCoords(CONFIG.height.min, CONFIG.height.max, startCoords.y - mouseEvt.clientY)
+      y: startCoords.y - mouseEvt.clientY
     };
+
     startCoords = {
       x: mouseEvt.clientX,
-      y: setMapLimitCoords(CONFIG.height.min, CONFIG.height.max, mouseEvt.clientY)
+      y: mouseEvt.clientY
     };
-    mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-    mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+
+    var mainPinTop = mainPin.offsetTop - shift.y;
+    var mainPinLeft = mainPin.offsetLeft - shift.x;
+
+    if (mainPinTop > CONFIG.height.min - MAIN_PIN_HEIGHT_MOVE && mainPinTop < CONFIG.height.max) {
+      mainPin.style.top = mainPinTop + 'px';
+    }
+
+    if (mainPinLeft > CONFIG.width.min - MAIN_PIN_WIDTH && mainPinLeft < CONFIG.width.max - MAIN_PIN_WIDTH_MOVE) {
+      mainPin.style.left = mainPinLeft + 'px';
+    }
+
+    // startCoords = {
+    //   x: mouseEvt.clientX,
+    //   y: mouseEvt.clientY
+    // };
+    // mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    // mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
 
     // console.log(mainPin.offsetTop - shift.y);
     // console.log(mainPin.offsetLeft - shift.x);
   };
 
   var dragged = false;
+
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
     dragged = true;
     moveMainPin(moveEvt);
-    setAddressValue();
+    setAddressValue(MAIN_PIN_WIDTH_MOVE, MAIN_PIN_HEIGHT_MOVE);
   };
 
   var onMouseUp = function (upEvt) {
@@ -196,10 +221,9 @@ mainPin.addEventListener('mousedown', function (evt) {
     setDisabled(fieldsetsForm, true);
     renderPins(generatePinsData());
 
-    if (dragged) {
-      moveMainPin(upEvt);
-      setAddressValue();
-    }
+    moveMainPin(upEvt);
+    setAddressValue(MAIN_PIN_WIDTH_MOVE, MAIN_PIN_HEIGHT_MOVE);
+
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
@@ -212,7 +236,7 @@ mainPin.addEventListener('mousedown', function (evt) {
 setDisabled(mapFilters, false);
 setDisabled(fieldsetsForm, false);
 
-setAddressValue();
+setAddressValue(MAIN_PIN_WIDTH, MAIN_PIN_HEIGHT);
 
 // var MAP_PIN_WIDTH = mainPin.offsetWidth;
 // var MAP_PIN_X = mainPin.offsetLeft;
