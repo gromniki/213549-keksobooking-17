@@ -1,12 +1,6 @@
 'use strict';
 
 (function () {
-  // var MAIN_PIN_WIDTH = 65 / 2;
-  // var MAIN_PIN_HEIGHT = 65 / 2;
-  //
-  // var MAIN_PIN_WIDTH_MOVE = MAIN_PIN_WIDTH;
-  // var MAIN_PIN_HEIGHT_MOVE = 65 + 22;
-
   var MainPin = {
     WIDTH: 65 / 2,
     HEIGHT: 65 / 2,
@@ -48,6 +42,4 @@
     CONFIG: CONFIG,
     PINS_NUMBER: PINS_NUMBER
   };
-
-  console.log('init data');
 })();

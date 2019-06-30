@@ -16,6 +16,4 @@
       return array[this.getRandomNumber(0, array.length)];
     }
   };
-
-  console.log('init util');
 })();
