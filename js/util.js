@@ -14,6 +14,17 @@
     },
     getRandomElement: function (array) {
       return array[this.getRandomNumber(0, array.length)];
+    },
+    setDisabled: function (array, isDisabled) {
+      for (var i = 0; i < array.length; i++) {
+        if (isDisabled) {
+          array[i].removeAttribute('disabled', '');
+        } else {
+          array[i].setAttribute('disabled', '');
+        }
+      }
+
+      return array;
     }
   };
 })();

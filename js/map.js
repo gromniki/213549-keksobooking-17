@@ -13,8 +13,8 @@
   var onActivatePage = function () {
     map.classList.remove('map--faded');
     window.form.adForm.classList.remove('ad-form--disabled');
-    window.form.setDisabled(window.form.mapFilters, true);
-    window.form.setDisabled(window.form.fieldsetsForm, true);
+    window.util.setDisabled(window.form.mapFilters, true);
+    window.util.setDisabled(window.form.fieldsetsForm, true);
     window.pin.renderPins(window.pin.generatePinsData());
     mainPin.removeEventListener('keydown', onActivatePage);
   };
@@ -81,8 +81,8 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  window.form.setDisabled(window.form.mapFilters, false);
-  window.form.setDisabled(window.form.fieldsetsForm, false);
+  window.util.setDisabled(window.form.mapFilters, false);
+  window.util.setDisabled(window.form.fieldsetsForm, false);
 
   window.form.setAddressValue(window.data.MainPin.WIDTH, window.data.MainPin.HEIGHT);
 })();

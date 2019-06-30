@@ -30,17 +30,6 @@
     adForm: adForm,
     mapFilters: mapFilters,
     fieldsetsForm: fieldsetsForm,
-    setDisabled: function (array, isDisabled) {
-      for (var i = 0; i < array.length; i++) {
-        if (isDisabled) {
-          array[i].removeAttribute('disabled', '');
-        } else {
-          array[i].setAttribute('disabled', '');
-        }
-      }
-
-      return array;
-    },
     setAddressValue: function (width, height) {
       var topMainPin = parseInt(window.map.mainPin.style.top, 10) + height;
       var leftMainPin = parseInt(window.map.mainPin.style.left, 10) + width;
