@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-  var MainPin = {
-    WIDTH: 65 / 2,
-    HEIGHT: 65 / 2,
-    WIDTH_MOVE: 65 / 2,
-    HEIGHT_MOVE: 65 + 22,
+  var mainPinSize = {
+    width: 65 / 2,
+    height: 65 / 2,
+    widthMove: 65 / 2,
+    heightMove: 65 + 22,
   };
 
   var TYPES = [
@@ -36,7 +36,7 @@
   var PINS_NUMBER = 8;
 
   window.data = {
-    MainPin: MainPin,
+    mainPinSize: mainPinSize,
     TYPES: TYPES,
     MIN_PRICES: MIN_PRICES,
     CONFIG: CONFIG,
