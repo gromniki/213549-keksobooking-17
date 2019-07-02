@@ -40,9 +40,9 @@
 
   var form = adForm.querySelector('.ad-form__submit');
   form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), function (response) {
+    window.backend.save(new FormData(form), function () {
       window.map.map.classList.add('map--faded');
-    });
+    }, window.pin.onError());
     evt.preventDefault();
   });
 })();

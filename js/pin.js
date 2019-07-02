@@ -41,7 +41,6 @@
         fragment.appendChild(renderPin(array[i]));
       }
       similarListElement.appendChild(fragment);
-      console.log(array);
     },
     onError: function (errorMessage) {
       var fragment = document.createDocumentFragment();
