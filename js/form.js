@@ -40,7 +40,7 @@
 
   var form = adForm.querySelector('.ad-form__submit');
   form.addEventListener('submit', function (evt) {
-    window.upload(new FormData(form), function (response) {
+    window.backend.save(new FormData(form), function (response) {
       window.map.map.classList.add('map--faded');
     });
     evt.preventDefault();

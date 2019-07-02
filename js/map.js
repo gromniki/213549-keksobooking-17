@@ -6,7 +6,7 @@
 
   window.map = {
     map: map,
-    mainPin: mainPin,
+    mainPin: mainPin
   };
 
   // Коллбэк активации карты
@@ -34,19 +34,19 @@
 
     var startCoords = {
       x: evt.clientX,
-      y: evt.clientY,
+      y: evt.clientY
     };
 
     // Функция перемещения главного пина по карте
     var moveMainPin = function (mouseEvt) {
       var shift = {
         x: startCoords.x - mouseEvt.clientX,
-        y: startCoords.y - mouseEvt.clientY,
+        y: startCoords.y - mouseEvt.clientY
       };
 
       startCoords = {
         x: mouseEvt.clientX,
-        y: mouseEvt.clientY,
+        y: mouseEvt.clientY
       };
 
       var mainPinTop = mainPin.offsetTop - shift.y;
