@@ -15,7 +15,9 @@
     window.form.adForm.classList.remove('ad-form--disabled');
     window.util.setDisabled(window.form.mapFilters, true);
     window.util.setDisabled(window.form.fieldsetsForm, true);
-    window.pin.renderPins(window.pin.generatePinsData());
+
+    // генерация пинов
+    window.backend.load(window.pin.onSuccess, window.pin.onError);
     mainPin.removeEventListener('keydown', onActivatePage);
   };
 

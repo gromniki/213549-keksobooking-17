@@ -2,7 +2,9 @@
 
 (function () {
   var similarListElement = document.querySelector('.map__pins');
+  var main = document.querySelector('main');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
   var renderPin = function (pin) {
     var pinElement = pinTemplate.cloneNode(true);
@@ -16,33 +18,35 @@
     return pinElement;
   };
 
+  // Функция вывода ошибки
+  var renderError = function (errorStatus) {
+    var error = document.querySelector('.error');
+    var errorElement = errorTemplate.cloneNode(true);
+    var errorMessage = errorElement.querySelector('.error__message');
+    var errorButton = errorElement.querySelector('.error__button');
+
+    errorMessage.textContent = errorStatus;
+    errorButton.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      main.removeChild(error);
+    });
+
+    return errorElement;
+  };
+
   window.pin = {
-    generatePinsData: function () {
-      var pins = [];
-
-      for (var i = 1; i <= window.data.PINS_NUMBER; i++) {
-        pins.push({
-          author: {
-            avatar: 'img/avatars/user0' + i + '.png',
-          },
-          offer: {
-            type: window.util.getRandomElement(window.data.TYPES),
-          },
-          location: {
-            x: window.util.getRandomNumber(window.data.CONFIG.width.min, window.data.CONFIG.width.max),
-            y: window.util.getRandomNumber(window.data.CONFIG.height.min, window.data.CONFIG.height.max),
-          },
-        });
-      }
-
-      return pins;
-    },
-    renderPins: function (array) {
+    onSuccess: function (array) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < array.length; i++) {
         fragment.appendChild(renderPin(array[i]));
       }
       similarListElement.appendChild(fragment);
+      console.log(array);
     },
+    onError: function (errorMessage) {
+      var fragment = document.createDocumentFragment();
+      fragment.appendChild(renderError(errorMessage));
+      main.appendChild(fragment);
+    }
   };
 })();

@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  var URL = 'https://js.dump.academy/keksobooking/data';
+  var URL = 'https://js.dump.academy/keksobooking/12data';
 
-  window.load = function (url, onSuccess, onError) {
+  window.load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -29,22 +29,4 @@
     xhr.open('GET', URL);
     xhr.send();
   };
-})();
-
-
-(function () {
-  var onError = function (message) {
-    console.error(message);
-  };
-
-  var onSuccess = function (data) {
-    console.log(data);
-  };
-
-  window.load('https://up.htmlacademy.ru/assets/javascript/demo/8-xhr/unknownfile.json', onSuccess, onError);
-
-  // подгружаю реальные данные с сервера Академии
-  window.load('https://js.dump.academy/keksobooking/data', onSuccess, onError);
-
-  window.load('https://api.github.com/user', onSuccess, onError);
 })();
