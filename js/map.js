@@ -17,7 +17,7 @@
     window.util.setDisabled(window.form.fieldsetsForm, true);
 
     // генерация пинов
-    window.backend.load(window.pin.onSuccess, window.pin.onError);
+    window.backend.load(window.pin.onRender, window.pin.onError);
     mainPin.removeEventListener('keydown', onActivatePage);
   };
 

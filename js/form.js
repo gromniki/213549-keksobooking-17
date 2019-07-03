@@ -38,12 +38,12 @@
     }
   };
 
-  var form = adForm.querySelector('.ad-form__submit');
-  form.addEventListener('submit', function (evt) {
+  // var form = adForm.querySelector('.ad-form__submit');
+  adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), function () {
-      window.pin.onSuccessMessage();
+    window.backend.save(new FormData(adForm), function () {
+      window.message.onSuccess();
       window.map.map.classList.add('map--faded');
-    }, window.pin.onError());
+    }, window.message.onError);
   });
 })();
