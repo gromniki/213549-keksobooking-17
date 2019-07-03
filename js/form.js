@@ -40,9 +40,10 @@
 
   var form = adForm.querySelector('.ad-form__submit');
   form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
     window.backend.save(new FormData(form), function () {
+      window.pin.onSuccessMessage();
       window.map.map.classList.add('map--faded');
     }, window.pin.onError());
-    evt.preventDefault();
   });
 })();
