@@ -43,7 +43,7 @@
     evt.preventDefault();
     window.backend.save(new FormData(adForm), function () {
       window.message.onSuccess();
-      window.map.map.classList.add('map--faded');
+      // window.map.map.classList.add('map--faded');
     }, window.message.onError);
   });
 })();

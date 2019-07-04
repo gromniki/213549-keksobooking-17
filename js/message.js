@@ -6,43 +6,64 @@
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
   // Функция вывода сообщения об успешной отправке данных
-  var renderSuccess = function () {
+  var onSuccess = function (onClose) {
     var successElement = successTemplate.cloneNode(true);
-    var successBlock = main.querySelector('.success');
 
-    successBlock.addEventListener('click', function () {
-      main.remove(successBlock);
-    });
+    var onClick = function () {
+      close();
+    };
 
-    return successElement;
+    var onKey = function (evt) {
+      if (evt.keyCode === window.util.KeyCodes.ESC) {
+        close();
+      }
+    };
+
+    var close = function () {
+      main.removeChild(successElement);
+      successElement.removeEventListener('click', onClick);
+      document.removeEventListener('keydown', onKey);
+      onClose();
+    };
+
+    successElement.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKey);
+
+    main.insertAdjacentElement('afterbegin', successElement);
   };
 
   // Функция вывода ошибки
-  var renderError = function (errorStatus) {
-    var error = document.querySelector('.error');
+  var onError = function (errorStatus, onClose) {
     var errorElement = errorTemplate.cloneNode(true);
     var errorMessage = errorElement.querySelector('.error__message');
-    var errorButton = errorElement.querySelector('.error__button');
-
+    // var errorButton = errorElement.querySelector('.error__button');
     errorMessage.textContent = errorStatus;
-    errorButton.addEventListener('click', function (evt) {
-      evt.preventDefault();
-      main.removeChild(error);
-    });
 
-    return errorElement;
+    var onClick = function () {
+      close();
+    };
+
+    var onKey = function (evt) {
+      if (evt.keyCode === window.util.KeyCodes.ESC) {
+        close();
+      }
+    };
+
+    var close = function () {
+      main.removeChild(errorElement);
+      errorElement.removeEventListener('click', onClick);
+      document.removeEventListener('keydown', onKey);
+      onClose();
+    };
+
+    errorElement.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKey);
+
+    main.insertAdjacentElement('afterbegin', errorElement);
   };
 
   window.message = {
-    onSuccess: function () {
-      var fragment = document.createDocumentFragment();
-      fragment.appendChild(renderSuccess());
-      main.appendChild(fragment);
-    },
-    onError: function (errorMessage) {
-      var fragment = document.createDocumentFragment();
-      fragment.appendChild(renderError(errorMessage));
-      main.appendChild(fragment);
-    }
+    onSuccess: onSuccess,
+    onError: onError
   };
 })();
