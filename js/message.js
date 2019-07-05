@@ -72,35 +72,6 @@
   renderMessage(onSuccess);
   renderMessage(onError);
 
-  // var show = function (template, onClose) {
-  //   var element = template.cloneNode(true);
-  //
-  //   // callback клика
-  //   var onClick = function () {
-  //     close();
-  //   };
-  //
-  //   // callback нажатия клавиши
-  //   var onKey = function (evt) {
-  //     if (evt.keyCode === window.util.KeyCodes.ESC) {
-  //       close();
-  //     }
-  //   };
-  //
-  //   // Функция закрытия сообщения
-  //   var close = function () {
-  //     main.removeChild(element);
-  //     element.removeEventListener('click', onClick);
-  //     document.removeEventListener('keydown', onKey);
-  //     onClose();
-  //   };
-  //
-  //   element.addEventListener('click', onClick);
-  //   document.addEventListener('keydown', onKey);
-  //
-  //   main.insertAdjacentElement('afterbegin', element);
-  // };
-
   var showMessage = function () {
 
   };

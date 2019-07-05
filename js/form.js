@@ -40,11 +40,6 @@
     }
   };
 
-
-  var xhr = new XMLHttpRequest();
-  console.log(xhr);
-
-
   // var form = adForm.querySelector('.ad-form__submit');
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
