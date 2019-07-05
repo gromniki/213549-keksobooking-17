@@ -10,6 +10,8 @@
   var timeIn = adForm.querySelector('#timein');
   var timeOut = adForm.querySelector('#timeout');
 
+  var success = document.querySelector('.success');
+
   // При изменении поля select, изменять значение плэйсхолдера в поле price
   // в соответствии с типом жилья
   types.addEventListener('change', function () {
@@ -38,12 +40,14 @@
     }
   };
 
+
+  var xhr = new XMLHttpRequest();
+  console.log(xhr);
+
+
   // var form = adForm.querySelector('.ad-form__submit');
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(adForm), function () {
-      window.message.onSuccess();
-      // window.map.map.classList.add('map--faded');
-    }, window.message.onError);
+    window.backend.save(new FormData(adForm));
   });
 })();

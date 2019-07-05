@@ -6,7 +6,7 @@
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
   // Функция вывода сообщения об успешной отправке данных
-  var onSuccess = function (onClose) {
+  var onSuccess = function () {
     var successElement = successTemplate.cloneNode(true);
 
     var onClick = function () {
@@ -23,17 +23,16 @@
       main.removeChild(successElement);
       successElement.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onKey);
-      onClose();
     };
 
     successElement.addEventListener('click', onClick);
     document.addEventListener('keydown', onKey);
 
-    main.insertAdjacentElement('afterbegin', successElement);
+    return successElement;
   };
 
   // Функция вывода ошибки
-  var onError = function (errorStatus, onClose) {
+  var onError = function (errorStatus) {
     var errorElement = errorTemplate.cloneNode(true);
     var errorMessage = errorElement.querySelector('.error__message');
     // var errorButton = errorElement.querySelector('.error__button');
@@ -50,20 +49,64 @@
     };
 
     var close = function () {
-      main.removeChild(errorElement);
+      errorElement.classList.add('hidden');
+      //main.removeChild(errorElement);
       errorElement.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onKey);
-      onClose();
     };
 
     errorElement.addEventListener('click', onClick);
     document.addEventListener('keydown', onKey);
 
-    main.insertAdjacentElement('afterbegin', errorElement);
+    return errorElement;
+
+    //return main.insertAdjacentElement('afterbegin', errorElement);
+  };
+
+  var renderMessage = function (getMessageElement) {
+    var message = getMessageElement();
+    message.classList.add('hidden');
+    main.insertAdjacentElement('afterbegin', message);
+  };
+
+  renderMessage(onSuccess);
+  renderMessage(onError);
+
+  // var show = function (template, onClose) {
+  //   var element = template.cloneNode(true);
+  //
+  //   // callback клика
+  //   var onClick = function () {
+  //     close();
+  //   };
+  //
+  //   // callback нажатия клавиши
+  //   var onKey = function (evt) {
+  //     if (evt.keyCode === window.util.KeyCodes.ESC) {
+  //       close();
+  //     }
+  //   };
+  //
+  //   // Функция закрытия сообщения
+  //   var close = function () {
+  //     main.removeChild(element);
+  //     element.removeEventListener('click', onClick);
+  //     document.removeEventListener('keydown', onKey);
+  //     onClose();
+  //   };
+  //
+  //   element.addEventListener('click', onClick);
+  //   document.addEventListener('keydown', onKey);
+  //
+  //   main.insertAdjacentElement('afterbegin', element);
+  // };
+
+  var showMessage = function () {
+
   };
 
   window.message = {
     onSuccess: onSuccess,
-    onError: onError
+    //onError: renderMessage(onError)
   };
 })();
