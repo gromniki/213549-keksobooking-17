@@ -5,8 +5,6 @@
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
-  var successMessage = document.querySelector('.success');
-
   // Функция вывода сообщения об успешной отправке данных
   var onSuccess = function () {
     var successElement = successTemplate.cloneNode(true);
@@ -52,7 +50,6 @@
 
     var close = function () {
       errorElement.classList.add('hidden');
-      //main.removeChild(errorElement);
       errorElement.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onKey);
     };
@@ -61,8 +58,6 @@
     document.addEventListener('keydown', onKey);
 
     return errorElement;
-
-    // return main.insertAdjacentElement('afterbegin', errorElement);
   };
 
   var renderMessage = function (getMessageElement) {
@@ -71,15 +66,21 @@
     main.insertAdjacentElement('afterbegin', message);
   };
 
-  renderMessage(onSuccess);
   renderMessage(onError);
+  renderMessage(onSuccess);
 
-  var showMessage = function () {
+  var showSuccessMessage = function () {
+    var successMessage = document.querySelector('.success');
+    successMessage.classList.remove('hidden');
+  };
 
+  var showErrorMessage = function () {
+    var message = document.querySelector('.error');
+    message.classList.remove('hidden');
   };
 
   window.message = {
-    onSuccess: successMessage,
-    //onError: renderMessage(onError)
+    onSuccess: showSuccessMessage,
+    onError: showErrorMessage
   };
 })();

@@ -18,7 +18,7 @@
 
     // генерация пинов
     window.backend.load(window.pin.onRender);
-    //window.backend.load(window.pin.onRender, window.pin.onError);
+    // window.backend.load(window.pin.onRender, window.pin.onError);
     mainPin.removeEventListener('keydown', onActivatePage);
   };
 
