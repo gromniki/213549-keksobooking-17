@@ -40,9 +40,13 @@
     }
   };
 
-  // var form = adForm.querySelector('.ad-form__submit');
+  //var successMessage = document.querySelector('.success');
+
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(adForm));
+    window.backend.save(new FormData(adForm), function () {
+      //successMessage.classList.remove('hidden');
+      window.message.onSuccess.classList.remove('hidden');
+    });
   });
 })();

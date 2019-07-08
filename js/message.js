@@ -5,6 +5,8 @@
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
+  var successMessage = document.querySelector('.success');
+
   // Функция вывода сообщения об успешной отправке данных
   var onSuccess = function () {
     var successElement = successTemplate.cloneNode(true);
@@ -60,7 +62,7 @@
 
     return errorElement;
 
-    //return main.insertAdjacentElement('afterbegin', errorElement);
+    // return main.insertAdjacentElement('afterbegin', errorElement);
   };
 
   var renderMessage = function (getMessageElement) {
@@ -77,7 +79,7 @@
   };
 
   window.message = {
-    onSuccess: onSuccess,
+    onSuccess: successMessage,
     //onError: renderMessage(onError)
   };
 })();
