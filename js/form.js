@@ -42,6 +42,8 @@
     evt.preventDefault();
     window.backend.save(new FormData(adForm), function () {
       window.message.onSuccess();
-    }, window.message.onError());
+    }, function () {
+      window.message.onError(evt);
+    });
   });
 })();

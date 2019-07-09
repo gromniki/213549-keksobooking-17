@@ -20,7 +20,7 @@
     };
 
     var close = function () {
-      main.removeChild(successElement);
+      successElement.classList.add('hidden');
       successElement.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onKey);
     };
@@ -35,7 +35,7 @@
   var onError = function (errorStatus) {
     var errorElement = errorTemplate.cloneNode(true);
     var errorMessage = errorElement.querySelector('.error__message');
-    // var errorButton = errorElement.querySelector('.error__button');
+
     errorMessage.textContent = errorStatus;
 
     var onClick = function () {

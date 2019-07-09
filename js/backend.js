@@ -2,8 +2,8 @@
 
 (function () {
   var URL_DATA = {
-    load: 'https://js.dump.academy/keksobooking/data',
-    save: 'https://js.dump.academy/keksobooking'
+    load: 'https://js.dump.academy/keksobooking/data3',
+    save: 'https://js.dump.academy/keksobooking3'
   };
 
   var REQUEST_TIMEOUT = 10000; // 10s
