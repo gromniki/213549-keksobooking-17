@@ -43,7 +43,7 @@
     window.backend.save(new FormData(adForm), function () {
       window.message.onSuccess();
     }, function () {
-      window.message.onError(evt);
+      window.message.onError('Ошибка');
     });
   });
 })();
