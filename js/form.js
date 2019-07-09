@@ -41,9 +41,9 @@
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adForm), function () {
-      window.message.onSuccess();
+      window.message.onSuccess('отправка');
     }, function () {
-      window.message.onError('Ошибка');
+      window.message.onError();
     });
   });
 })();

@@ -20,7 +20,7 @@
     // window.backend.load(window.pin.onRender, function () {
     //   window.message.onError(errorStatus);
     // });
-    window.backend.load(window.pin.onRender, window.message.onError('Text ошибки'));
+    window.backend.load(window.pin.onRender, window.message.onError);
     // window.backend.load(window.pin.onRender, window.pin.onError);
     mainPin.removeEventListener('keydown', onActivatePage);
   };
