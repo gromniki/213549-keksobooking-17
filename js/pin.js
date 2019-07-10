@@ -16,6 +16,10 @@
     return pinElement;
   };
 
+  // var filterPin = function () {
+  //
+  // };
+
   var clearPin = function () {
     var mapPins = document.querySelector('.map__pins');
     var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
@@ -28,9 +32,9 @@
   window.pin = {
     onRender: function (array) {
       var fragment = document.createDocumentFragment();
-      for (var i = 0; i < array.length; i++) {
-        fragment.appendChild(renderPin(array[i]));
-      }
+      array.forEach(function (pin) {
+        fragment.appendChild(renderPin(pin));
+      });
       similarListElement.appendChild(fragment);
     },
     clearPin: clearPin,
