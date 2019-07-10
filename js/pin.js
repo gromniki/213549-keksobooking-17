@@ -16,33 +16,23 @@
     return pinElement;
   };
 
+  var clearPin = function () {
+    var mapPins = document.querySelector('.map__pins');
+    var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    pins.forEach(function (pin) {
+      mapPins.removeChild(pin);
+    });
+  };
+
   window.pin = {
-    generatePinsData: function () {
-      var pins = [];
-
-      for (var i = 1; i <= window.data.PINS_NUMBER; i++) {
-        pins.push({
-          author: {
-            avatar: 'img/avatars/user0' + i + '.png',
-          },
-          offer: {
-            type: window.util.getRandomElement(window.data.TYPES),
-          },
-          location: {
-            x: window.util.getRandomNumber(window.data.CONFIG.width.min, window.data.CONFIG.width.max),
-            y: window.util.getRandomNumber(window.data.CONFIG.height.min, window.data.CONFIG.height.max),
-          },
-        });
-      }
-
-      return pins;
-    },
-    renderPins: function (array) {
+    onRender: function (array) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < array.length; i++) {
         fragment.appendChild(renderPin(array[i]));
       }
       similarListElement.appendChild(fragment);
     },
+    clearPin: clearPin,
   };
 })();
