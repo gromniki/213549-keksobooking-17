@@ -26,6 +26,10 @@
   timeIn.addEventListener('change', onTimeChange);
   timeOut.addEventListener('change', onTimeChange);
 
+  // var resetForm = function (evt) {
+  //
+  // };
+
   window.form = {
     adForm: adForm,
     mapFilters: mapFilters,
@@ -41,7 +45,8 @@
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adForm), function () {
-      window.message.onSuccess('отправка');
+      window.message.onSuccess();
+      window.pin.clearPin();
     }, function () {
       window.message.onError();
     });
