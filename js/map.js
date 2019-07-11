@@ -17,10 +17,7 @@
     window.util.setDisabled(window.form.fieldsetsForm, true);
 
     // генерация пинов
-    window.backend.load(window.pin.onRender, window.message.onError)
-      .filter(function (pin) {
-        console.log(pin);
-      });
+    window.backend.load(window.pin.onRender, window.message.onError);
     mainPin.removeEventListener('keydown', onActivatePage);
   };
 
