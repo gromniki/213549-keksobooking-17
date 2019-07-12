@@ -28,28 +28,13 @@
   window.pin = {
     onRender: function (array) {
       var fragment = document.createDocumentFragment();
-      var pins = [array];
 
-      // pins.filter(function (pin, i) {
-      //   return i.length < 5;
-      // });
-
-      console.log(pins);
-
-      pins.slice(0, 5).forEach(function (pin) {
+      array.forEach(function (pin) {
         fragment.appendChild(renderPin(pin));
-        // console.log(pin.author);
+        // if (pin.offer.type === 'bungalo') {
+        //   console.log(pin.offer.type);
+        // }
       });
-
-      // pins.filter(function () {
-      //
-      // });
-
-      // for (var i = 0; i < pins.length; i++) {
-      //   fragment.appendChild(renderPin(pins[i]));
-      // }
-
-      console.log(pins);
 
       similarListElement.appendChild(fragment);
     },
