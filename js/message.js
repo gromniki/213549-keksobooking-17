@@ -57,7 +57,6 @@
     showMessage(MessageTypes.SUCCESS, text);
   };
 
-  // текст тут равен ошибки которая в бекенде, мы вызываем функцию show с типом error и текстом
   var onError = function (text) {
     showMessage(MessageTypes.ERROR, text);
   };
