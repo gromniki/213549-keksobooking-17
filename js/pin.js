@@ -28,9 +28,14 @@
   window.pin = {
     onRender: function (array) {
       var fragment = document.createDocumentFragment();
-      for (var i = 0; i < array.length; i++) {
-        fragment.appendChild(renderPin(array[i]));
-      }
+
+      array.forEach(function (pin) {
+        fragment.appendChild(renderPin(pin));
+        // if (pin.offer.type === 'bungalo') {
+        //   console.log(pin.offer.type);
+        // }
+      });
+
       similarListElement.appendChild(fragment);
     },
     clearPin: clearPin,
