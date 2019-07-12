@@ -52,11 +52,11 @@
       var mainPinTop = mainPin.offsetTop - shift.y;
       var mainPinLeft = mainPin.offsetLeft - shift.x;
 
-      if (mainPinTop > window.data.CONFIG.height.min - window.data.mainPinSize.heightMove && mainPinTop < window.data.CONFIG.height.max) {
+      if (mainPinTop > window.data.CONFIG.HEIGHT_MIN - window.data.mainPinSize.heightMove && mainPinTop < window.data.CONFIG.HEIGHT_MAX) {
         mainPin.style.top = mainPinTop + 'px';
       }
 
-      if (mainPinLeft > window.data.CONFIG.width.min - window.data.mainPinSize.width && mainPinLeft < map.offsetWidth - window.data.mainPinSize.widthMove) {
+      if (mainPinLeft > window.data.CONFIG.WIDTH_MIN - window.data.mainPinSize.width && mainPinLeft < map.offsetWidth - window.data.mainPinSize.widthMove) {
         mainPin.style.left = mainPinLeft + 'px';
       }
     };

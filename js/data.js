@@ -33,13 +33,20 @@
     }
   };
 
+  var Config = {
+    WIDTH_MIN: 0,
+    WIDTH_MAX: 1200,
+    HEIGHT_MIN: 130,
+    HEIGHT_MAX: 630
+  };
+
   var PINS_NUMBER = 8;
 
   window.data = {
     mainPinSize: mainPinSize,
     TYPES: TYPES,
     MIN_PRICES: MIN_PRICES,
-    CONFIG: CONFIG,
+    CONFIG: Config,
     PINS_NUMBER: PINS_NUMBER
   };
 })();
