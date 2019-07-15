@@ -22,17 +22,6 @@
     palace: 10000
   };
 
-  var CONFIG = {
-    width: {
-      min: 0,
-      max: 1200
-    },
-    height: {
-      min: 130,
-      max: 630
-    }
-  };
-
   var Config = {
     WIDTH_MIN: 0,
     WIDTH_MAX: 1200,

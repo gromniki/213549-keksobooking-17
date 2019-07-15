@@ -2,6 +2,12 @@
 
 (function () {
   var adForm = document.querySelector('.ad-form');
+  var mainFormFilters = document.querySelector('.map__filters');
+  var typesFilter = mainFormFilters.querySelector('#housing-type');
+  var pricesFilter = mainFormFilters.querySelector('#housing-price');
+  var roomsFilter = mainFormFilters.querySelector('#housing-rooms');
+  var guestsFilter = mainFormFilters.querySelector('#housing-guests');
+  var featuresFilter = mainFormFilters.querySelector('#housing-features');
   var mapFilters = document.querySelectorAll('.map__filter');
   var fieldsetsForm = document.querySelectorAll('fieldset');
   var fieldAddress = document.querySelector('#address');
@@ -25,6 +31,12 @@
 
   timeIn.addEventListener('change', onTimeChange);
   timeOut.addEventListener('change', onTimeChange);
+
+  // Выводить на карту не более 5 меток. Установка фильтра по количеству должна происходить сразу после получения данных с сервера.
+  // Запрограммировать фильтр «Тип жилья». Помните, независимо от того сколько объявлений соответствует фильтру «Тип жилья» на карте не должно отображаться больше пяти объявлений.
+  typesFilter.addEventListener('change', function () {
+    var valueType = typesFilter.value;
+  });
 
   // var resetForm = function (evt) {
   //

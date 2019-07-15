@@ -22,7 +22,7 @@
   renderMessage(errorTemplate); // на старте приложения рендерим и прячем
 
   // общая функция для показа сообщения, всё навешивается здесь, чтобы скрытые сообщения были без подписок
-  var showMessage = function (type, text) {
+  var showDialog = function (type, text) {
     var message = document.querySelector('.' + type);
     var messageText = message.querySelector('.' + type + '__message'); // по типу получаем текст и сам элемент
 
@@ -54,11 +54,11 @@
 
   // функция обертки, которая принимает текст и вызывают функцию показа
   var onSuccess = function (text) {
-    showMessage(MessageTypes.SUCCESS, text);
+    showDialog(MessageTypes.SUCCESS, text);
   };
 
   var onError = function (text) {
-    showMessage(MessageTypes.ERROR, text);
+    showDialog(MessageTypes.ERROR, text);
   };
 
   window.message = {
