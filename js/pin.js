@@ -29,12 +29,19 @@
     onRender: function (array) {
       var fragment = document.createDocumentFragment();
 
-      array.forEach(function (pin) {
-        fragment.appendChild(renderPin(pin));
-        // if (pin.offer.type === 'bungalo') {
-        //   console.log(pin.offer.type);
-        // }
-      });
+      // array.forEach(function (pin) {
+      //   fragment.appendChild(renderPin(pin));
+      //   // if (pin.offer.type === 'bungalo') {
+      //   //   console.log(pin.offer.type);
+      //   // }
+      // });
+
+      debugger;
+      for (var i = 0; i < array.length; i++) {
+        if (array[i] < 5) {
+          fragment.appendChild(renderPin(pin));
+        }
+      }
 
       similarListElement.appendChild(fragment);
     },
