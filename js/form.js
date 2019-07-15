@@ -36,6 +36,7 @@
   // Запрограммировать фильтр «Тип жилья». Помните, независимо от того сколько объявлений соответствует фильтру «Тип жилья» на карте не должно отображаться больше пяти объявлений.
   typesFilter.addEventListener('change', function () {
     var valueType = typesFilter.value;
+    console.log(valueType);
   });
 
   // var resetForm = function (evt) {

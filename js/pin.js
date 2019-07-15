@@ -36,11 +36,11 @@
       //   // }
       // });
 
-      debugger;
+      // debugger;
       for (var i = 0; i < array.length; i++) {
-        if (array[i] < 5) {
-          fragment.appendChild(renderPin(pin));
-        }
+
+          fragment.appendChild(renderPin(array[i]));
+
       }
 
       similarListElement.appendChild(fragment);
