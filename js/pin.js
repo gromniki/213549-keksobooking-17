@@ -25,6 +25,12 @@
     });
   };
 
+
+
+
+  var mainFormFilters = document.querySelector('.map__filters');
+  var typesFilter = mainFormFilters.querySelector('#housing-type');
+
   window.pin = {
     onRender: function (array) {
       var fragment = document.createDocumentFragment();
@@ -37,11 +43,48 @@
       // });
 
       // debugger;
-      for (var i = 0; i < array.length; i++) {
+      // array.filter(x=> ...).slice(0, 5)
 
-          fragment.appendChild(renderPin(array[i]));
+      // var arrayPins = array;
+      //
+      // var updatePins = function () {
+      //   var types = wizards.filter(function (it) {
+      //     return it.colorCoat === coatColor;
+      //   });
+      //
+      //   window.render(sameCoatWizards);
+      // };
 
-      }
+      var onTypeChange = function () {
+        var valueType = typesFilter.value;
+        // typesFilter.removeEventListener('change', onTypeChange);
+        console.log(valueType);
+      };
+
+      typesFilter.addEventListener('change', onTypeChange);
+
+
+      var arrayPins = array.slice(0, 5).filter(function (it) {
+        if (typesFilter.value === it.offer.type) {
+          console.log(it);
+        }
+
+
+
+        // typesFilter.addEventListener('change', function () {
+        //   var valueType = typesFilter.value;
+        //   console.log(valueType);
+        // });
+        //
+        // console.log(it.offer.type);
+      });
+
+      console.log(arrayPins);
+
+      arrayPins.forEach(function (pin) {
+        fragment.appendChild(renderPin(pin));
+      });
+
 
       similarListElement.appendChild(fragment);
     },
