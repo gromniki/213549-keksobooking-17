@@ -57,10 +57,14 @@
 
       console.log(arrayPins);
 
-      debugger;
+      // debugger;
       var filterByType = function () {
         return arrayPins.filter(function (pin) {
-          return pin.offer.type === typesFilter.value;
+          console.log(pin.offer.type);
+          // if (pin.offer.type === typesFilter.value) {
+          //   console.log(pin);
+          //   // fragment.appendChild(renderPin(pin));
+          // }
         }).slice(0, 5);
       };
 
@@ -77,9 +81,9 @@
 
       typesFilter.addEventListener('change', onTypeChange);
 
-      arrayPins.forEach(function (pin) {
-        fragment.appendChild(renderPin(pin));
-      });
+      // arrayPins.forEach(function (pin) {
+      //   fragment.appendChild(renderPin(pin));
+      // });
 
 
       // var arrayPins = array.slice(0, 5).filter(function (it) {
