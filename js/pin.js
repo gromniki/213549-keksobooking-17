@@ -26,10 +26,16 @@
   };
 
 
-
-
   var mainFormFilters = document.querySelector('.map__filters');
   var typesFilter = mainFormFilters.querySelector('#housing-type');
+
+  var filterByType = function () {
+    return window.backend.load().filter(function (pin) {
+      return pin.offer.type === typesFilter.value;
+    }).slice(0, 5);
+  };
+
+  console.log(filterByType());
 
   window.pin = {
     onRender: function (array) {
@@ -55,36 +61,39 @@
       //   window.render(sameCoatWizards);
       // };
 
+
+
+      // var arrayPins = filterByType(array);
+
       var onTypeChange = function () {
         var valueType = typesFilter.value;
+
         // typesFilter.removeEventListener('change', onTypeChange);
         console.log(valueType);
       };
 
       typesFilter.addEventListener('change', onTypeChange);
 
-
-      var arrayPins = array.slice(0, 5).filter(function (it) {
-        if (typesFilter.value === it.offer.type) {
-          console.log(it);
-        }
-
-
-
-        // typesFilter.addEventListener('change', function () {
-        //   var valueType = typesFilter.value;
-        //   console.log(valueType);
-        // });
-        //
-        // console.log(it.offer.type);
-      });
-
-      console.log(arrayPins);
-
       arrayPins.forEach(function (pin) {
         fragment.appendChild(renderPin(pin));
       });
 
+
+      // var arrayPins = array.slice(0, 5).filter(function (it) {
+      //   if (typesFilter.value === it.offer.type) {
+      //     console.log(it);
+      //   }
+      //
+      //
+      //   // typesFilter.addEventListener('change', function () {
+      //   //   var valueType = typesFilter.value;
+      //   //   console.log(valueType);
+      //   // });
+      //   //
+      //   // console.log(it.offer.type);
+      // });
+
+      // console.log(arrayPins);
 
       similarListElement.appendChild(fragment);
     },
