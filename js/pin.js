@@ -29,14 +29,6 @@
   var mainFormFilters = document.querySelector('.map__filters');
   var typesFilter = mainFormFilters.querySelector('#housing-type');
 
-  var filterByType = function () {
-    return window.backend.load().filter(function (pin) {
-      return pin.offer.type === typesFilter.value;
-    }).slice(0, 5);
-  };
-
-  console.log(filterByType());
-
   window.pin = {
     onRender: function (array) {
       var fragment = document.createDocumentFragment();
@@ -61,9 +53,20 @@
       //   window.render(sameCoatWizards);
       // };
 
+      var arrayPins = array;
+
+      console.log(arrayPins);
+
+      debugger;
+      var filterByType = function () {
+        return arrayPins.filter(function (pin) {
+          return pin.offer.type === typesFilter.value;
+        }).slice(0, 5);
+      };
+
+      console.log(filterByType());
 
 
-      // var arrayPins = filterByType(array);
 
       var onTypeChange = function () {
         var valueType = typesFilter.value;
