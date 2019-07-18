@@ -57,7 +57,7 @@
 
       console.log(arrayPins);
 
-      debugger;
+
       var filterByType = function () {
         return arrayPins.filter(function (pin) {
           return pin.offer.type === typesFilter.value;
@@ -101,5 +101,6 @@
       similarListElement.appendChild(fragment);
     },
     clearPin: clearPin,
+    mapPinsList: similarListElement,
   };
 })();
