@@ -15,6 +15,7 @@
     },
     getRandomNumber: function (min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
+      // return Math.random() * (max - min) + min;  // рефактор
     },
     getRandomElement: function (array) {
       return array[this.getRandomNumber(0, array.length)];
