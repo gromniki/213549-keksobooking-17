@@ -6,6 +6,35 @@
 
   console.log(cardTemplate);
 
+  // Объект наименования в объявлении в соответствии с типом жилья
+  var typesOnMap = {
+    'bungalo': 'Бунгало',
+    'flat': 'Квартира',
+    'house': 'Дом',
+    'palace': 'Дворец'
+  };
+
+  // функция заполнения поля текстовой информацией
+  var fillField = function (field, text) {
+    if (text) {
+      field.textContent = text;
+    } else {
+      field.style.display = 'none';
+    }
+    return field.textContent;
+  };
+
+  // функция заполнения поля с типом жилья
+  var fillType = function (field, text) {
+    field.textContent = typesOnMap[fillField(field, text)];
+  };
+
+  // функция заполнения поля с ценой
+  var fillPrice = function (field, number) {
+    field.textContent = fillField(field, number) + '₽/ночь';
+  };
+
+
   var renderCard = function (card) {
     var cardElement = cardTemplate.cloneNode(true);
 
