@@ -33,6 +33,7 @@
   //     mapPins.removeChild(pin);
   //   });
   // };
+  
 
   window.card = {
     renderCard: function (cards) {
