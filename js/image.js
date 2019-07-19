@@ -10,9 +10,6 @@
 
   avatarChooser.addEventListener('change', function () {
     var file = avatarChooser.files[0];
-
-    console.log(file);
-
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
@@ -32,9 +29,6 @@
 
   imageUploadChooser.addEventListener('change', function () {
     var file = imageUploadChooser.files[0];
-
-    console.log(file);
-
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
