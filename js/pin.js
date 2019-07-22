@@ -55,12 +55,7 @@
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
     var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
-
-    console.log('фильтр по типу: ' + filteredPins);
-
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
-
-    console.log('Первые 5: ' + pins);
 
     pins.forEach(function (pin) {
       fragment.appendChild(renderPin(pin));
