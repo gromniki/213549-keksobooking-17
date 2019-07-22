@@ -1,9 +1,14 @@
 'use strict';
 
 (function () {
-  var similarListElement = document.querySelector('.map__pins');
-  var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var PINS_MAX_COUNT = 5;
 
+  var similarListElement = document.querySelector('.map__pins');
+  var housingTypeFilter = document.querySelector('#housing-type');
+  var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var pinsCache = [];
+
+  // функция отрисовки и изменения характеристик одного пина
   var renderPin = function (pin) {
     var pinElement = pinTemplate.cloneNode(true);
     var img = pinElement.querySelector('img');
@@ -16,7 +21,8 @@
     return pinElement;
   };
 
-  var clearPin = function () {
+  // функция очистки пинов с карты, при добавлении нового объявления
+  var clearPins = function () {
     var mapPins = document.querySelector('.map__pins');
     var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
 
@@ -25,82 +31,53 @@
     });
   };
 
+  // функция отрисовки необходимого количества пинов
+  var getRenderedPins = function (pins, count) {
+    return pins.slice(0, count); // режем первые N
+  };
 
-  var mainFormFilters = document.querySelector('.map__filters');
-  var typesFilter = mainFormFilters.querySelector('#housing-type');
+  // функция фильтрации по типам жилья
+  var filterByHousingType = function () {
+    var pins = pinsCache.slice(0); // копируем массив
+    var type = housingTypeFilter.value; // берем значение фильтра
+
+    if ((type && type === 'any') || !type) { // проверяем если выбрано все
+      return pins;
+    }
+
+    return pins.filter(function (pin) {
+      return pin.offer.type === type;
+    }); // если нет фильтруем по типу
+  };
+
+
+  // функция отрисовки пинов на карте
+  var renderPins = function () {
+    var fragment = document.createDocumentFragment();
+    var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
+
+    console.log('фильтр по типу: ' + filteredPins);
+
+    var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
+
+    console.log('Первые 5: ' + pins);
+
+    pins.forEach(function (pin) {
+      fragment.appendChild(renderPin(pin));
+    });
+
+    clearPins();
+    similarListElement.appendChild(fragment);
+  };
+
+  housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
   window.pin = {
     onRender: function (array) {
-      var fragment = document.createDocumentFragment();
-
-      // array.forEach(function (pin) {
-      //   fragment.appendChild(renderPin(pin));
-      //   // if (pin.offer.type === 'bungalo') {
-      //   //   console.log(pin.offer.type);
-      //   // }
-      // });
-
-      // debugger;
-      // array.filter(x=> ...).slice(0, 5)
-
-      // var arrayPins = array;
-      //
-      // var updatePins = function () {
-      //   var types = wizards.filter(function (it) {
-      //     return it.colorCoat === coatColor;
-      //   });
-      //
-      //   window.render(sameCoatWizards);
-      // };
-
-      var arrayPins = array;
-
-      console.log(arrayPins);
-
-
-      var filterByType = function () {
-        return arrayPins.filter(function (pin) {
-          return pin.offer.type === typesFilter.value;
-        }).slice(0, 5);
-      };
-
-      console.log(filterByType());
-
-
-
-      var onTypeChange = function () {
-        var valueType = typesFilter.value;
-
-        // typesFilter.removeEventListener('change', onTypeChange);
-        console.log(valueType);
-      };
-
-      typesFilter.addEventListener('change', onTypeChange);
-
-      arrayPins.forEach(function (pin) {
-        fragment.appendChild(renderPin(pin));
-      });
-
-
-      // var arrayPins = array.slice(0, 5).filter(function (it) {
-      //   if (typesFilter.value === it.offer.type) {
-      //     console.log(it);
-      //   }
-      //
-      //
-      //   // typesFilter.addEventListener('change', function () {
-      //   //   var valueType = typesFilter.value;
-      //   //   console.log(valueType);
-      //   // });
-      //   //
-      //   // console.log(it.offer.type);
-      // });
-
-      // console.log(arrayPins);
-
-      similarListElement.appendChild(fragment);
+      pinsCache = array; // сохраняем полученные с сервера пины в переменную
+      renderPins(); // рендерим
+      console.log(pinsCache);
     },
-    clearPin: clearPin,
-    mapPinsList: similarListElement,
+    clearPin: clearPins,
   };
 })();

@@ -41,7 +41,6 @@
     return cardElement;
   };
 
-
   // var renderPin = function (pin) {
   //   var pinElement = pinTemplate.cloneNode(true);
   //   var img = pinElement.querySelector('img');
