@@ -24,11 +24,9 @@
   // функция очистки пинов с карты, при добавлении нового объявления
   var clearPins = function () {
     var mapPins = document.querySelector('.map__pins');
-    var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
+    // var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
 
-    pins.forEach(function (pin) {
-      mapPins.removeChild(pin);
-    });
+    window.util.deleteDOMList(mapPins, '.map__pin:not(.map__pin--main)');
   };
 
   // функция отрисовки необходимого количества пинов
