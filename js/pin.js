@@ -26,7 +26,7 @@
     var mapPins = document.querySelector('.map__pins');
     // var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
 
-    window.util.deleteDOMList(mapPins, '.map__pin:not(.map__pin--main)');
+    window.util.removeNodeList(mapPins, '.map__pin:not(.map__pin--main)');
   };
 
   // функция отрисовки необходимого количества пинов
@@ -72,5 +72,6 @@
       console.log(pinsCache);
     },
     clearPin: clearPins,
+    mapPins: similarListElement
   };
 })();

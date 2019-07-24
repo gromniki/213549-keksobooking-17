@@ -36,7 +36,7 @@
 
       return array;
     },
-    deleteDOMList: function (parentElement, selectors) {
+    removeNodeList: function (parentElement, selectors) {
       var domArray = parentElement.querySelectorAll(selectors);
       domArray.forEach(function (list) {
         list.remove();

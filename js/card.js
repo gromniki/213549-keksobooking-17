@@ -4,14 +4,20 @@
   // var similarListElement = document.querySelector('.map__pins');
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  console.log('шаблон карточки ' + cardTemplate);
-
   // Объект наименования в объявлении в соответствии с типом жилья
   var typesOnMap = {
     'bungalo': 'Бунгало',
     'flat': 'Квартира',
     'house': 'Дом',
     'palace': 'Дворец'
+  };
+
+  // Характеристики фотографий жилья
+  var Photo = {
+    CLASS: 'popup__photo',
+    WIDTH: 45,
+    HEIGHT: 40,
+    ALT: 'Фотография жилья'
   };
 
   // функция заполнения поля текстовой информацией
@@ -57,15 +63,13 @@
   };
 
   // функция заполнения поля с удобствами
-  var fillFeatures = function (parent, selector, arr) {
+  var fillFeatures = function (parent, selector, features) {
     // удаляем все элементы из шаблона
-    window.util.deleteDOMList(parent, selector);
-
-    var fragment = document.createDocumentFragment();
+    window.util.removeNodeList(parent, selector);
 
     // добавляем только те, что есть в объявлении
-    if (arr && arr.length > 0) {
-      arr.forEach(function (item) {
+    if (features && features.length > 0) {
+      features.forEach(function (item) {
         var feature = document.createElement('li');
         feature.classList.add('popup__feature');
         feature.classList.add('popup__feature--' + item);
@@ -74,28 +78,48 @@
     } else {
       parent.style.display = 'none';
     }
-
-    return fragment;
   };
 
   // функция вывода изображений объявления
-  var renderPhotos = function (parent, selector, sources) {
-    var fragment = document.createDocumentFragment();
+  var fillPhotos = function (parent, selector, sources) {
+    // удаляем все фото из шаблона
+    window.util.removeNodeList(parent, selector);
 
     sources.forEach(function (pic) {
-      var element = document.createElement('img');
-      element.classList.add('popup__photo');
-      element.setAttribute('src', pic);
-      element.setAttribute('width', '45');
-      element.setAttribute('height', '40');
-      element.setAttribute('alt', 'Фотография жилья');
+      var img = document.createElement('img');
+      img.classList.add(Photo.CLASS);
+      img.setAttribute('src', pic);
+      img.setAttribute('width', Photo.WIDTH);
+      img.setAttribute('height', Photo.HEIGHT);
+      img.setAttribute('alt', Photo.ALT);
+      parent.appendChild(img);
     });
+  };
 
-    return fragment;
+  var fillAvatar = function (field, source) {
+    field.src = source;
+  };
+
+  // var closeModal = function () {
+  //   card.remove();
+  //
+  //   document.removeEventListener('keydown', onPopapEscPress);
+  //   if (window.data.map.querySelector('.map__pin--active')) {
+  //     window.data.map.querySelector('.map__pin--active').classList.remove('map__pin--active');
+  //   }
+  // };
+
+  var onEscModal = function (evt) {
+    if (window.utils.isEscEvent(evt)) {
+      closeModal();
+    }
   };
 
   var renderCard = function (card) {
     var cardElement = cardTemplate.cloneNode(true);
+
+    card = cardTemplate.cloneNode(true);
+
     var title = cardElement.querySelector('.popup__title');
     var address = cardElement.querySelector('.popup__text--address');
     var price = cardElement.querySelector('.popup__text--price');
@@ -105,32 +129,40 @@
     var features = cardElement.querySelector('.popup__features');
     var description = cardElement.querySelector('.popup__description');
     var photos = cardElement.querySelector('.popup__photos');
+    var avatar = cardElement.querySelector('.popup__avatar');
+    var closeButton = cardElement.querySelector('.popup__close');
 
-
-    // В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения.
-    // Замените src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта.
-
+    // вывод данных в необходимые поля
     fillField(title, card.offer.title); // заголовок
     fillField(address, card.offer.address); // адрес
     fillPrice(price, card.offer.price); // цена
     fillType(type, card.offer.type); // тип жилья
     fillCapacity(capacity, card.offer.rooms, card.offer.guests); // количество комнат и гостей
     fillTime(time, card.offer.checkin, card.offer.checkout); // время заезда и выезда
-    fillFeatures(features, '.popup__feature', card.offer.features);  // удобства
-    fillField(description, card.offer.description);
+    fillFeatures(features, '.popup__feature', card.offer.features); // удобства
+    fillField(description, card.offer.description); // описание
+    fillPhotos(photos, '.popup__photo', card.offer.photos); // фотографии жилья
+    fillAvatar(avatar, card.author.avatar); // замена дефолтной аватарки
+
+    closeButton.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      //closePopup();
+    });
+
+    // document.addEventListener('keydown', onPopapEscPress);
 
     return cardElement;
+
+    // добавляем отрисованную карточку в разметку
+    // window.data.map.insertBefore(card, window.data.map.querySelector('.map__filters-container'));
   };
 
   var renderCards = function () {
     var fragment = document.createDocumentFragment();
 
-    window.backend.load(window.pin.onRender).forEach(function (card) {
-      fragment.appendChild(renderCard(card));
-    });
+    console.log(renderCard());
 
-
-    window.pin.mapPinsList.insertAdjacentElement('afterend', fragment);
+    window.pin.mapPins.insertAdjacentElement('afterend', fragment);
   };
 
 
