@@ -100,6 +100,19 @@
     field.src = source;
   };
 
+  var onPopupEscPress = function (evt) {
+    window.util.isEscEvent(evt, closePopup);
+  };
+
+  var closePopup = function () {
+    var activeCard = window.map.map.querySelector('.popup');
+    if (activeCard && window.map.map.querySelector('.map__pin--active')) {
+      activeCard.remove();
+      window.map.map.querySelector('.map__pin--active').classList.remove('.map__pin--active');
+      document.removeEventListener('keydown', onPopupEscPress);
+    }
+  };
+
   // var closeModal = function () {
   //   card.remove();
   //
@@ -109,17 +122,14 @@
   //   }
   // };
 
-  var onEscModal = function (evt) {
-    if (window.utils.isEscEvent(evt)) {
-      closeModal();
-    }
-  };
+  // var onEscModal = function (evt) {
+  //   if (window.utils.isEscEvent(evt)) {
+  //     closeModal();
+  //   }
+  // };
 
   var renderCard = function (card) {
     var cardElement = cardTemplate.cloneNode(true);
-
-    //card = cardTemplate.cloneNode(true);
-
     var title = cardElement.querySelector('.popup__title');
     var address = cardElement.querySelector('.popup__text--address');
     var price = cardElement.querySelector('.popup__text--price');
@@ -146,14 +156,18 @@
 
     closeButton.addEventListener('click', function (evt) {
       evt.preventDefault();
-      //closePopup();
+      closePopup();
     });
+
+    // closeButton.addEventListener('keydown', function (evt) {
+    //   window.util.isEnterEvent(evt, closePopup);
+    // });
 
     // document.addEventListener('keydown', onPopapEscPress);
 
-    return cardElement;
+    // return cardElement;
 
-
+    window.pin.mapPins.insertAdjacentElement('afterend', cardElement);
   };
 
   var renderCards = function (cards) {
@@ -166,20 +180,19 @@
     //   fragment.appendChild(renderCard(card));
     // });
 
+    // var renderMessage = function (template) {
+    //   var message = template.cloneNode(true);
+    //   message.classList.add('hidden');
+    //   main.insertAdjacentElement('afterbegin', message);
+    // };
+
     // window.pin.mapPins.insertAdjacentElement('afterend', fragment);
 
-    document.querySelector('.map').insertBefore(fragment, document.querySelector('.map__filters-container'));
+    window.pin.mapPins.insertAdjacentElement('afterend', fragment);
   };
 
 
-
-
-
-
-
-
-
   window.card = {
-    onRender: renderCards,
+    onRender: renderCard,
   };
 })();

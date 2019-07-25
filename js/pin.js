@@ -22,6 +22,7 @@
     pinElement.addEventListener('click', function (evt) {
       evt.preventDefault();
       window.card.onRender(pin);
+      pinElement.classList.add('map__pin--active');
     });
 
     return pinElement;
@@ -56,8 +57,8 @@
 
 
   // функция отрисовки пинов на карте
-  var renderPins = function (array) {
-    pinsCache = array;
+  var renderPins = function () {
+    // pinsCache = array;
     var fragment = document.createDocumentFragment();
     var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
@@ -73,12 +74,12 @@
   housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
   window.pin = {
-    // onRender: function (array) {
-    //   pinsCache = array; // сохраняем полученные с сервера пины в переменную
-    //   renderPins(); // рендерим
-    //   console.log(pinsCache);
-    // },
-    onRender: renderPins,
+    onRender: function (array) {
+      pinsCache = array; // сохраняем полученные с сервера пины в переменную
+      renderPins(); // рендерим
+      console.log(pinsCache);
+    },
+    // onRender: renderPins,
     clearPin: clearPins,
     mapPins: similarListElement
   };
