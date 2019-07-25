@@ -96,6 +96,7 @@
     });
   };
 
+  // функция добавления аватара
   var fillAvatar = function (field, source) {
     field.src = source;
   };
@@ -110,6 +111,14 @@
       activeCard.remove();
       window.map.map.querySelector('.map__pin--active').classList.remove('.map__pin--active');
       document.removeEventListener('keydown', onPopupEscPress);
+    }
+  };
+
+  // удаляем карточку из разметки, если она создана
+  var removeCard = function () {
+    var activeCard = window.map.map.querySelector('.popup');
+    if (activeCard) {
+      closePopup();
     }
   };
 
@@ -129,6 +138,8 @@
   // };
 
   var renderCard = function (card) {
+    removeCard();
+
     var cardElement = cardTemplate.cloneNode(true);
     var title = cardElement.querySelector('.popup__title');
     var address = cardElement.querySelector('.popup__text--address');
