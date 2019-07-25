@@ -118,7 +118,7 @@
   var renderCard = function (card) {
     var cardElement = cardTemplate.cloneNode(true);
 
-    card = cardTemplate.cloneNode(true);
+    //card = cardTemplate.cloneNode(true);
 
     var title = cardElement.querySelector('.popup__title');
     var address = cardElement.querySelector('.popup__text--address');
@@ -153,33 +153,33 @@
 
     return cardElement;
 
-    // добавляем отрисованную карточку в разметку
-    // window.data.map.insertBefore(card, window.data.map.querySelector('.map__filters-container'));
+
   };
 
-  var renderCards = function () {
+  var renderCards = function (cards) {
     var fragment = document.createDocumentFragment();
 
-    console.log(renderCard());
+    // console.log(renderCard());
+    renderCard(cards);
 
-    window.pin.mapPins.insertAdjacentElement('afterend', fragment);
+    // cards.forEach(function (card) {
+    //   fragment.appendChild(renderCard(card));
+    // });
+
+    // window.pin.mapPins.insertAdjacentElement('afterend', fragment);
+
+    document.querySelector('.map').insertBefore(fragment, document.querySelector('.map__filters-container'));
   };
 
 
-  // var renderPin = function (pin) {
-  //   var pinElement = pinTemplate.cloneNode(true);
-  //   var img = pinElement.querySelector('img');
-  //
-  //   img.setAttribute('src', pin.author.avatar);
-  //   img.setAttribute('alt', 'Заголовок объявления');
-  //   pinElement.style.left = pin.location.x + 'px';
-  //   pinElement.style.top = pin.location.y + 'px';
-  //
-  //   return pinElement;
-  // };
+
+
+
+
+
 
 
   window.card = {
-    renderCard: renderCards,
+    onRender: renderCards,
   };
 })();

@@ -14,9 +14,15 @@
     var img = pinElement.querySelector('img');
 
     img.setAttribute('src', pin.author.avatar);
-    img.setAttribute('alt', 'Заголовок объявления');
+    img.setAttribute('alt', pin.offer.title);
     pinElement.style.left = pin.location.x + 'px';
     pinElement.style.top = pin.location.y + 'px';
+
+
+    pinElement.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      window.card.onRender(pin);
+    });
 
     return pinElement;
   };
@@ -50,7 +56,8 @@
 
 
   // функция отрисовки пинов на карте
-  var renderPins = function () {
+  var renderPins = function (array) {
+    pinsCache = array;
     var fragment = document.createDocumentFragment();
     var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
@@ -66,11 +73,12 @@
   housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
   window.pin = {
-    onRender: function (array) {
-      pinsCache = array; // сохраняем полученные с сервера пины в переменную
-      renderPins(); // рендерим
-      console.log(pinsCache);
-    },
+    // onRender: function (array) {
+    //   pinsCache = array; // сохраняем полученные с сервера пины в переменную
+    //   renderPins(); // рендерим
+    //   console.log(pinsCache);
+    // },
+    onRender: renderPins,
     clearPin: clearPins,
     mapPins: similarListElement
   };
