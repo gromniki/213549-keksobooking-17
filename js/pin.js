@@ -31,8 +31,6 @@
   // функция очистки пинов с карты, при добавлении нового объявления
   var clearPins = function () {
     var mapPins = document.querySelector('.map__pins');
-    // var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
-
     window.util.removeNodeList(mapPins, '.map__pin:not(.map__pin--main)');
   };
 
@@ -55,10 +53,8 @@
     }); // если нет фильтруем по типу
   };
 
-
   // функция отрисовки пинов на карте
   var renderPins = function () {
-    // pinsCache = array;
     var fragment = document.createDocumentFragment();
     var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
@@ -77,10 +73,10 @@
     onRender: function (array) {
       pinsCache = array; // сохраняем полученные с сервера пины в переменную
       renderPins(); // рендерим
-      console.log(pinsCache);
+      // console.log(pinsCache);
     },
     // onRender: renderPins,
     clearPin: clearPins,
-    mapPins: similarListElement
+    mapPins: similarListElement,
   };
 })();

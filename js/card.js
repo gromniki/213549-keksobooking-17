@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  // var similarListElement = document.querySelector('.map__pins');
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // Объект наименования в объявлении в соответствии с типом жилья
@@ -9,7 +8,7 @@
     'bungalo': 'Бунгало',
     'flat': 'Квартира',
     'house': 'Дом',
-    'palace': 'Дворец'
+    'palace': 'Дворец',
   };
 
   // Характеристики фотографий жилья
@@ -17,7 +16,7 @@
     CLASS: 'popup__photo',
     WIDTH: 45,
     HEIGHT: 40,
-    ALT: 'Фотография жилья'
+    ALT: 'Фотография жилья',
   };
 
   // функция заполнения поля текстовой информацией
@@ -107,9 +106,10 @@
 
   var closePopup = function () {
     var activeCard = window.map.map.querySelector('.popup');
-    if (activeCard && window.map.map.querySelector('.map__pin--active')) {
+    var activeClass = window.map.map.querySelector('.map__pin--active');
+    if (activeCard && activeClass) {
       activeCard.remove();
-      window.map.map.querySelector('.map__pin--active').classList.remove('.map__pin--active');
+      activeClass.classList.remove('map__pin--active');
       document.removeEventListener('keydown', onPopupEscPress);
     }
   };
@@ -122,25 +122,11 @@
     }
   };
 
-  // var closeModal = function () {
-  //   card.remove();
-  //
-  //   document.removeEventListener('keydown', onPopapEscPress);
-  //   if (window.data.map.querySelector('.map__pin--active')) {
-  //     window.data.map.querySelector('.map__pin--active').classList.remove('map__pin--active');
-  //   }
-  // };
-
-  // var onEscModal = function (evt) {
-  //   if (window.utils.isEscEvent(evt)) {
-  //     closeModal();
-  //   }
-  // };
-
   var renderCard = function (card) {
     removeCard();
 
     var cardElement = cardTemplate.cloneNode(true);
+
     var title = cardElement.querySelector('.popup__title');
     var address = cardElement.querySelector('.popup__text--address');
     var price = cardElement.querySelector('.popup__text--price');
@@ -165,45 +151,26 @@
     fillPhotos(photos, '.popup__photo', card.offer.photos); // фотографии жилья
     fillAvatar(avatar, card.author.avatar); // замена дефолтной аватарки
 
+    document.addEventListener('keydown', closePopup);
+
     closeButton.addEventListener('click', function (evt) {
       evt.preventDefault();
       closePopup();
     });
 
-    // closeButton.addEventListener('keydown', function (evt) {
-    //   window.util.isEnterEvent(evt, closePopup);
-    // });
-
-    // document.addEventListener('keydown', onPopapEscPress);
-
-    // return cardElement;
-
-    window.pin.mapPins.insertAdjacentElement('afterend', cardElement);
+    // window.pin.mapPins.insertAdjacentElement('afterend', cardElement);
+    return cardElement;
   };
 
   var renderCards = function (cards) {
     var fragment = document.createDocumentFragment();
 
-    // console.log(renderCard());
     renderCard(cards);
-
-    // cards.forEach(function (card) {
-    //   fragment.appendChild(renderCard(card));
-    // });
-
-    // var renderMessage = function (template) {
-    //   var message = template.cloneNode(true);
-    //   message.classList.add('hidden');
-    //   main.insertAdjacentElement('afterbegin', message);
-    // };
-
-    // window.pin.mapPins.insertAdjacentElement('afterend', fragment);
 
     window.pin.mapPins.insertAdjacentElement('afterend', fragment);
   };
 
-
   window.card = {
-    onRender: renderCard,
+    onRender: renderCards,
   };
 })();
