@@ -15,15 +15,23 @@
   var price = adForm.querySelector('#price');
   var timeIn = adForm.querySelector('#timein');
   var timeOut = adForm.querySelector('#timeout');
+  var room = adForm.querySelector('#room_number');
+  var capacity = adForm.querySelector('#capacity');
+  var resetBtn = adForm.querySelector('button[type=reset]');
 
   // При изменении поля select, изменять значение плэйсхолдера в поле price
   // в соответствии с типом жилья
-  types.addEventListener('change', function () {
+  var onTypesChange = function () {
     var valueType = types.value;
     price.setAttribute('placeholder', window.data.MIN_PRICES[valueType]);
     price.setAttribute('min', window.data.MIN_PRICES[valueType]);
-  });
+  };
 
+  onTypesChange(); // если пользователь не меняет значение полей
+
+  types.addEventListener('change', onTypesChange);
+
+  // Синхронизация времени заезда и выезда
   var onTimeChange = function (evt) {
     var select = evt.target === timeIn ? timeOut : timeIn;
     select.value = evt.target.value;
@@ -31,6 +39,26 @@
 
   timeIn.addEventListener('change', onTimeChange);
   timeOut.addEventListener('change', onTimeChange);
+
+  // Вывод сообщений о выборе комнат в соответствии с количеством гостей
+  var getValidityMessageCapacity = function () {
+    var validityText = '';
+
+    if (room.value !== 100) {
+      validityText = (capacity.value !== 0 && capacity.value <= room.value) ? '' : 'Укажите количество мест отличное от 0, но не более ' + room.value;
+    } else {
+      validityText = (capacity.value !== 0) ? 'Для выбранного количества комнат возможное количество гостей - 0' : '';
+    }
+
+    capacity.setCustomValidity(validityText);
+  };
+
+  getValidityMessageCapacity(); // если пользователь не меняет значение полей
+
+  // Вывод сообщений о выборе комнат в соответствии с количеством гостей при изменении полей
+  room.addEventListener('change', getValidityMessageCapacity);
+  capacity.addEventListener('change', getValidityMessageCapacity);
+
 
   // var resetForm = function (evt) {
   //
