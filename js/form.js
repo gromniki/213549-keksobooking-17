@@ -85,4 +85,16 @@
       window.message.onError();
     });
   });
+
+  // коллбэк-функция очистки формы
+  var onResetForm = function () {
+    adForm.reset(); // очистка всех полей формы
+    window.pin.clearPin(); // очистка всех меток с карты
+    window.card.removeCard(); // удаление открытой карточки объявления
+    window.image.clearAvatar(); // очистка загруженной аватарки
+
+
+  };
+
+  resetBtn.addEventListener('click', onResetForm);
 })();

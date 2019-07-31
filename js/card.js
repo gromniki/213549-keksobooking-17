@@ -173,5 +173,6 @@
 
   window.card = {
     onRender: renderCard,
+    removeCard: removeCard
   };
 })();

@@ -5,8 +5,10 @@
 
   var avatarChooser = document.querySelector('.ad-form-header__upload input[type=file]');
   var avatarPreview = document.querySelector('.ad-form-header__preview img');
+  var avatarDefault = avatarPreview.src;
   var imageUploadChooser = document.querySelector('.ad-form__upload input[type=file]');
   var imageUploadPreview = document.querySelector('.ad-form__photo');
+  var isAttachedFiles = true;
 
   avatarChooser.addEventListener('change', function () {
     var file = avatarChooser.files[0];
@@ -51,4 +53,16 @@
       reader.readAsDataURL(file);
     }
   });
+
+  // аватарка по дефолту
+  var clearAvatar = function () {
+    avatarPreview.src = avatarDefault;
+  };
+
+
+
+  window.image = {
+    clearAvatar: clearAvatar,
+    clearPhoto: clearPhoto
+  };
 })();
