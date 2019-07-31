@@ -73,9 +73,7 @@
     onRender: function (array) {
       pinsCache = array; // сохраняем полученные с сервера пины в переменную
       renderPins(); // рендерим
-      // console.log(pinsCache);
     },
-    // onRender: renderPins,
     clearPin: clearPins,
     mapPins: similarListElement,
   };

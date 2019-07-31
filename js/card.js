@@ -158,19 +158,20 @@
       closePopup();
     });
 
-    // window.pin.mapPins.insertAdjacentElement('afterend', cardElement);
-    return cardElement;
+    window.pin.mapPins.insertAdjacentElement('afterend', cardElement);
   };
 
-  var renderCards = function (cards) {
-    var fragment = document.createDocumentFragment();
-
-    renderCard(cards);
-
-    window.pin.mapPins.insertAdjacentElement('afterend', fragment);
-  };
+  // var renderCards = function (cards) {
+  //   var fragment = document.createDocumentFragment();
+  //
+  //   cards.forEach(function (card) {
+  //     fragment.appendChild(renderCard(card));
+  //   });
+  //
+  //   window.pin.mapPins.insertAdjacentElement('afterend', fragment);
+  // };
 
   window.card = {
-    onRender: renderCards,
+    onRender: renderCard,
   };
 })();
