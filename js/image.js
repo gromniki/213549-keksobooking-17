@@ -63,6 +63,6 @@
 
   window.image = {
     clearAvatar: clearAvatar,
-    clearPhoto: clearPhoto
+    // clearPhoto: clearPhoto
   };
 })();

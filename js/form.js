@@ -68,6 +68,7 @@
     adForm: adForm,
     mapFilters: mapFilters,
     fieldsetsForm: fieldsetsForm,
+    fieldAddress: fieldAddress,
     setAddressValue: function (width, height) {
       var topMainPin = parseInt(window.map.mainPin.style.top, 10) + height;
       var leftMainPin = parseInt(window.map.mainPin.style.left, 10) + width;
@@ -92,6 +93,8 @@
     window.pin.clearPin(); // очистка всех меток с карты
     window.card.removeCard(); // удаление открытой карточки объявления
     window.image.clearAvatar(); // очистка загруженной аватарки
+    window.map.setDeactivatePage(); // перевод страницы в неактивное состояние
+    window.map.movePinToOriginal(); // главный маркер на центр
 
 
   };
