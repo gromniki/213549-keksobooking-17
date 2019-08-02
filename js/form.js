@@ -75,7 +75,7 @@
     evt.preventDefault();
     window.backend.save(new FormData(adForm), function () {
       window.message.onSuccess();
-      window.pin.clearPin();
+      onResetForm();
     }, function () {
       window.message.onError();
     });

@@ -25,9 +25,18 @@
   var showDialog = function (type, text) {
     var message = document.querySelector('.' + type);
     var messageText = message.querySelector('.' + type + '__message'); // по типу получаем текст и сам элемент
+    var errorBtn = message.querySelector('.error__button');
 
     if (text) {
       messageText.textContent = text;
+    }
+
+    // обработчик события для закрытия окна ошибки
+    if (errorBtn) {
+      errorBtn.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        close();
+      });
     }
 
     var onClick = function () {
@@ -52,7 +61,7 @@
     message.classList.remove('hidden'); // показываем ее
   };
 
-  // функция обертки, которая принимает текст и вызывают функцию показа
+  // функция обертки, которая принимает текст и вызывает функцию показа
   var onSuccess = function (text) {
     showDialog(MessageTypes.SUCCESS, text);
   };
