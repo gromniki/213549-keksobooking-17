@@ -107,16 +107,21 @@
   var closePopup = function () {
     var activeCard = window.map.map.querySelector('.popup');
     var activeClass = window.map.map.querySelector('.map__pin--active');
-    if (activeCard && activeClass) {
+
+    if (activeCard) {
       activeCard.remove();
-      activeClass.classList.remove('map__pin--active');
       document.removeEventListener('keydown', onPopupEscPress);
+    }
+
+    if (activeClass) {
+      activeClass.classList.remove('map__pin--active');
     }
   };
 
   // удаляем карточку из разметки, если она создана
   var removeCard = function () {
     var activeCard = window.map.map.querySelector('.popup');
+
     if (activeCard) {
       closePopup();
     }
@@ -173,6 +178,6 @@
 
   window.card = {
     onRender: renderCard,
-    removeCard: removeCard
+    removeCard: removeCard,
   };
 })();

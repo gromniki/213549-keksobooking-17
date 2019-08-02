@@ -19,8 +19,7 @@
   var capacity = adForm.querySelector('#capacity');
   var resetBtn = adForm.querySelector('button[type=reset]');
 
-  // При изменении поля select, изменять значение плэйсхолдера в поле price
-  // в соответствии с типом жилья
+  // При изменении поля select, изменять значение плэйсхолдера в поле price в соответствии с типом жилья
   var onTypesChange = function () {
     var valueType = types.value;
     price.setAttribute('placeholder', window.data.MIN_PRICES[valueType]);
@@ -59,22 +58,17 @@
   room.addEventListener('change', getValidityMessageCapacity);
   capacity.addEventListener('change', getValidityMessageCapacity);
 
-
-  // var resetForm = function (evt) {
-  //
-  // };
-
   window.form = {
     adForm: adForm,
     mapFilters: mapFilters,
     fieldsetsForm: fieldsetsForm,
-    fieldAddress: fieldAddress,
     setAddressValue: function (width, height) {
       var topMainPin = parseInt(window.map.mainPin.style.top, 10) + height;
       var leftMainPin = parseInt(window.map.mainPin.style.left, 10) + width;
 
       fieldAddress.value = leftMainPin + ', ' + topMainPin;
-    }
+    },
+    fieldAddress: fieldAddress,
   };
 
   adForm.addEventListener('submit', function (evt) {
@@ -95,8 +89,6 @@
     window.image.clearAvatar(); // очистка загруженной аватарки
     window.map.setDeactivatePage(); // перевод страницы в неактивное состояние
     window.map.movePinToOriginal(); // главный маркер на центр
-
-
   };
 
   resetBtn.addEventListener('click', onResetForm);
