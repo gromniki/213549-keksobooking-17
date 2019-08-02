@@ -75,18 +75,19 @@
     evt.preventDefault();
     window.backend.save(new FormData(adForm), function () {
       window.message.onSuccess();
-      onResetForm();
+      onResetForm(); // вызов функции очистки формы
     }, function () {
       window.message.onError();
     });
   });
 
-  // коллбэк-функция очистки формы
+  // коллбэк-функция очистки формы и блокировки страницы
   var onResetForm = function () {
     adForm.reset(); // очистка всех полей формы
     window.pin.clearPin(); // очистка всех меток с карты
     window.card.removeCard(); // удаление открытой карточки объявления
     window.image.clearAvatar(); // очистка загруженной аватарки
+    window.image.clearPreview(); // очистка фотографий жилья
     window.map.setDeactivatePage(); // перевод страницы в неактивное состояние
     window.map.movePinToOriginal(); // главный маркер на центр
   };

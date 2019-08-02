@@ -59,10 +59,17 @@
     avatarPreview.src = avatarDefault;
   };
 
+  // функция очистки превью фотографий жилья
+  var clearPreviewImages = function () {
+    var previewImages = Array.from(imageUploadPreview.querySelectorAll('img'));
 
+    previewImages.forEach(function (item) {
+      item.remove();
+    });
+  };
 
   window.image = {
     clearAvatar: clearAvatar,
-    // clearPhoto: clearPhoto
+    clearPreview: clearPreviewImages
   };
 })();
