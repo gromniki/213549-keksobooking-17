@@ -5,6 +5,7 @@
 
   var similarListElement = document.querySelector('.map__pins');
   var housingTypeFilter = document.querySelector('#housing-type');
+  var housingRoomsFilter = document.querySelector('#housing-rooms');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinsCache = [];
 
@@ -53,10 +54,24 @@
     }); // если нет фильтруем по типу
   };
 
+  // функция фильтрации по количеству комнат
+  var filterByHousingRoom = function () {
+    var pins = pinsCache.slice(0); // копируем массив
+    var room = housingRoomsFilter.value;
+
+    if ((room && room === 'any') || !room) { // проверяем если выбрано все
+      return pins;
+    }
+
+    return pins.filter(function (pin) {
+      return pin.offer.rooms === room;
+    }); // если нет фильтруем по комнатам
+  };
+
   // функция отрисовки пинов на карте
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
-    var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
+    var filteredPins = filterByHousingType() || filterByHousingRoom(); // Фильтруем все пины по типу
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
 
     pins.forEach(function (pin) {
@@ -68,15 +83,14 @@
   };
 
   housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
+  housingRoomsFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
   window.pin = {
     onRender: function (array) {
       pinsCache = array; // сохраняем полученные с сервера пины в переменную
-      renderPins(); // рендерим
+      window.debounce(renderPins()); // рендерим
     },
     clearPin: clearPins,
     mapPins: similarListElement,
-    pinsMaxCount: PINS_MAX_COUNT,
-    pinsCache: pinsCache,
   };
 })();

@@ -24,6 +24,8 @@
   var defaultValue = 'any'; // значение фильтра не выбрано
 
   // массив для хранения отфильтрованного списка объявлений
+  var pinsCache = [];
+
   var filteredData = [];
 
   // функция отрисовки отфильтрованных объявлений
@@ -68,6 +70,23 @@
   var checkTypeValue = function (it) {
     return (selectedTypeValue === defaultValue) || (it.offer.type === selectedTypeValue);
   };
+
+
+  // функция фильтрации по типам жилья
+  var filterByHousingType = function () {
+    var pins = pinsCache.slice(0); // копируем массив
+    var type = typeFilter.value; // берем значение фильтра
+
+    if ((type && type === 'any') || !type) { // проверяем если выбрано все
+      return pins;
+    }
+
+    return pins.filter(function (pin) {
+      return pin.offer.type === type;
+    }); // если нет фильтруем по типу
+  };
+
+  // housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
   // функция сравнения стоимости жилья
   var checkPriceValue = function (it) {
@@ -126,13 +145,17 @@
       return checkTotal(ad);
     });
 
-    console.log(filteredData);
+    // console.log(filteredData);
 
     // запустим отрисовку отфильтрованных меток
     window.debounce(updateAdsList);
 
-    console.log(updateAdsList());
+    //console.log(updateAdsList());
   });
 
-  // window.filters = {};
+  window.filters = {
+    pinsCache: pinsCache,
+    typeFilter: typeFilter,
+    filterByHousingType: filterByHousingType,
+  };
 })();
