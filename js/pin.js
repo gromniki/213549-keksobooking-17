@@ -76,5 +76,7 @@
     },
     clearPin: clearPins,
     mapPins: similarListElement,
+    pinsMaxCount: PINS_MAX_COUNT,
+    pinsCache: pinsCache,
   };
 })();
