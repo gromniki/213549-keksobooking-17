@@ -11,12 +11,12 @@
   var housingGuestFilter = document.querySelector('#housing-guests');
 
   // фильтры удобств
-  var wifi = mapFilters.querySelector('#filter-wifi');
-  var dishwasher = mapFilters.querySelector('#filter-dishwasher');
-  var parking = mapFilters.querySelector('#filter-parking');
-  var washer = mapFilters.querySelector('#filter-washer');
-  var elevator = mapFilters.querySelector('#filter-elevator');
-  var conditioner = mapFilters.querySelector('#filter-conditioner');
+  var filterWifi = mapFilters.querySelector('#filter-wifi');
+  var filterDishwasher = mapFilters.querySelector('#filter-dishwasher');
+  var filterParking = mapFilters.querySelector('#filter-parking');
+  var filterWasher = mapFilters.querySelector('#filter-washer');
+  var filterElevator = mapFilters.querySelector('#filter-elevator');
+  var filterConditioner = mapFilters.querySelector('#filter-conditioner');
 
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinsCache = [];
@@ -105,9 +105,11 @@
     if ((room && room === 'any') || !room) {
       return pins;
     }
-
+    //debugger;
     return pins.filter(function (pin) {
-      return pin.offer.rooms === room;
+      // return pin.offer.rooms.toString() === room;
+      // return pin.offer.rooms === room;
+      return pin.offer.rooms === parseInt(room, 10);
     });
   };
 
@@ -121,16 +123,40 @@
     }
 
     return pins.filter(function (pin) {
-      return pin.offer.guests === guest;
+      return pin.offer.guests === parseInt(guest, 10);
     });
   };
+
+  // функция фильтрации по удобствам
+
+  var filterByHousingFeature = function () {
+    //debugger;
+    var pins = filterByHousingGuest();
+    var wifi = filterWifi.value;
+
+    // if ((wifi && wifi === 'any') || !wifi) {
+    //   return pins;
+    // }
+
+    //console.log(pin.offer.features['wifi']);
+    debugger;
+    return pins.filter(function (pin) {
+      return pin.offer.features['wifi'] === wifi;
+    });
+  };
+
+
+
+
+
+
 
   // функция отрисовки пинов на карте
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
     // var filteredPins = filterTotal(pinsCache); // Фильтруем все пины по типу
     // var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
-    var filteredPins = filterByHousingGuest(); // Фильтруем все пины
+    var filteredPins = filterByHousingFeature(); // Фильтруем все пины
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
 
     pins.forEach(function (pin) {
