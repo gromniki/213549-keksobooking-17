@@ -8,6 +8,16 @@
   var housingTypeFilter = document.querySelector('#housing-type');
   var housingPriceFilter = document.querySelector('#housing-price');
   var housingRoomFilter = document.querySelector('#housing-rooms');
+  var housingGuestFilter = document.querySelector('#housing-guests');
+
+  // фильтры удобств
+  var wifi = mapFilters.querySelector('#filter-wifi');
+  var dishwasher = mapFilters.querySelector('#filter-dishwasher');
+  var parking = mapFilters.querySelector('#filter-parking');
+  var washer = mapFilters.querySelector('#filter-washer');
+  var elevator = mapFilters.querySelector('#filter-elevator');
+  var conditioner = mapFilters.querySelector('#filter-conditioner');
+
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinsCache = [];
 
@@ -59,34 +69,21 @@
     var pins = pinsCache.slice(0); // копируем массив
     var type = housingTypeFilter.value; // берем значение фильтра
 
-    if ((type && type === 'any') || !type) { // проверяем если выбрано все
+    if ((type && type === 'any') || !type) { // проверяем, если выбрано всё, то возвращаем изначальный массив
       return pins;
     }
 
     return pins.filter(function (pin) {
       return pin.offer.type === type;
-    }); // если нет фильтруем по типу
+    }); // если нет, то фильтруем по типу
   };
 
-  // функция фильтрации по количеству комнат
-  var filterByHousingRoom = function () {
-    var pins = pinsCache.slice(0); // копируем массив
-    var room = housingRoomFilter.value;
-
-    if ((room && room === 'any') || !room) { // проверяем если выбрано все
-      return pins;
-    }
-
-    return pins.filter(function (pin) {
-      return pin.offer.rooms === room;
-    }); // если нет фильтруем по комнатам
-  };
-
+  // функция фильтрации по цене
   var filterByHousingPrice = function () {
-    var pins = pinsCache.slice(0); // копируем массив
+    var pins = filterByHousingType();
     var price = housingPriceFilter.value;
 
-    if ((price && price === 'any') || !price) { // проверяем если выбрано все
+    if ((price && price === 'any') || !price) {
       return pins;
     }
 
@@ -100,11 +97,40 @@
     });
   };
 
+  // функция фильтрации по количеству комнат
+  var filterByHousingRoom = function () {
+    var pins = filterByHousingPrice();
+    var room = housingRoomFilter.value;
+
+    if ((room && room === 'any') || !room) {
+      return pins;
+    }
+
+    return pins.filter(function (pin) {
+      return pin.offer.rooms === room;
+    });
+  };
+
+  // функция фильтрации по количеству гостей
+  var filterByHousingGuest = function () {
+    var pins = filterByHousingRoom();
+    var guest = housingGuestFilter.value;
+
+    if ((guest && guest === 'any') || !guest) {
+      return pins;
+    }
+
+    return pins.filter(function (pin) {
+      return pin.offer.guests === guest;
+    });
+  };
+
   // функция отрисовки пинов на карте
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
-    var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
-    // var filteredPins = filterByHousingPrice(); // Фильтруем все пины по типу
+    // var filteredPins = filterTotal(pinsCache); // Фильтруем все пины по типу
+    // var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
+    var filteredPins = filterByHousingGuest(); // Фильтруем все пины
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
 
     pins.forEach(function (pin) {
