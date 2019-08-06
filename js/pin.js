@@ -4,10 +4,24 @@
   var PINS_MAX_COUNT = 5;
 
   var similarListElement = document.querySelector('.map__pins');
+  var mapFilters = document.querySelector('.map__filters');
   var housingTypeFilter = document.querySelector('#housing-type');
-  var housingRoomsFilter = document.querySelector('#housing-rooms');
+  var housingPriceFilter = document.querySelector('#housing-price');
+  var housingRoomFilter = document.querySelector('#housing-rooms');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinsCache = [];
+
+  var priceNumber = {
+    'low': {
+      min: 0,
+      max: 10000
+    },
+    'middle': {
+      min: 10000,
+      max: 50000
+    },
+    'high': 50000
+  };
 
   // функция отрисовки и изменения характеристик одного пина
   var renderPin = function (pin) {
@@ -57,7 +71,7 @@
   // функция фильтрации по количеству комнат
   var filterByHousingRoom = function () {
     var pins = pinsCache.slice(0); // копируем массив
-    var room = housingRoomsFilter.value;
+    var room = housingRoomFilter.value;
 
     if ((room && room === 'any') || !room) { // проверяем если выбрано все
       return pins;
@@ -68,10 +82,29 @@
     }); // если нет фильтруем по комнатам
   };
 
+  var filterByHousingPrice = function () {
+    var pins = pinsCache.slice(0); // копируем массив
+    var price = housingPriceFilter.value;
+
+    if ((price && price === 'any') || !price) { // проверяем если выбрано все
+      return pins;
+    }
+
+    return pins.filter(function (pin) {
+      if (price === 'high') {
+        return pin.offer.price >= priceNumber[price];
+      }
+
+      return pin.offer.price >= priceNumber[price].min
+        && pin.offer.price < priceNumber[price].max;
+    });
+  };
+
   // функция отрисовки пинов на карте
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
-    var filteredPins = filterByHousingType() || filterByHousingRoom(); // Фильтруем все пины по типу
+    var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
+    // var filteredPins = filterByHousingPrice(); // Фильтруем все пины по типу
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
 
     pins.forEach(function (pin) {
@@ -82,8 +115,11 @@
     similarListElement.appendChild(fragment);
   };
 
-  housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
-  housingRoomsFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
+  // housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
+  // housingRoomFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
+  // housingPriceFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
+
+  mapFilters.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
   window.pin = {
     onRender: function (array) {
