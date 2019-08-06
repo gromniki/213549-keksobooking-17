@@ -9,6 +9,7 @@
   var housingPriceFilter = document.querySelector('#housing-price');
   var housingRoomFilter = document.querySelector('#housing-rooms');
   var housingGuestFilter = document.querySelector('#housing-guests');
+  var housingFeatureFilter = document.querySelector('#housing-features');
 
   // фильтры удобств
   var filterWifi = mapFilters.querySelector('#filter-wifi');
@@ -127,35 +128,55 @@
     });
   };
 
-  // функция фильтрации по удобствам
 
+
+  // функция фильтрации по удобствам
   var filterByHousingFeature = function () {
     //debugger;
     var pins = filterByHousingGuest();
-    var wifi = filterWifi.value;
+    var activeFeatures = []; // массив для хранения выбранных удобств
+    var features = housingFeatureFilter.querySelectorAll('input[name=features]');
 
-    // if ((wifi && wifi === 'any') || !wifi) {
-    //   return pins;
-    // }
-
-    //console.log(pin.offer.features['wifi']);
-    debugger;
-    return pins.filter(function (pin) {
-      return pin.offer.features['wifi'] === wifi;
+    features.forEach(function (feature) {
+      if (feature.checked) {
+        activeFeatures.push(feature.value); // заносим в массив выбранные удобства
+      }
     });
+
+    var isContains = function (where, what) {
+      what.forEach(function (it) {
+        if (where.indexOf(it) === -1) {
+          return false;
+        }
+      });
+
+      return true;
+    };
+
+    return pins.filter(function (pin) {
+      var hasFeature = false;
+      activeFeatures.forEach(function (activeFeature) {
+        if (pin.offer.features.some(function (dataFeature) {
+          return dataFeature === activeFeature;
+        })) {
+          hasFeature = true;
+          return pin;
+        }
+      });
+    });
+
+    // return pins.filter(function (pin) {
+    //   if (pin.offer.features.some(function (it) {
+    //     return it === activeFeatures[it];
+    //   })) {
+    //     return pin;
+    //   }
+    // });
   };
-
-
-
-
-
-
-
+  
   // функция отрисовки пинов на карте
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
-    // var filteredPins = filterTotal(pinsCache); // Фильтруем все пины по типу
-    // var filteredPins = filterByHousingType(); // Фильтруем все пины по типу
     var filteredPins = filterByHousingFeature(); // Фильтруем все пины
     var pins = getRenderedPins(filteredPins, PINS_MAX_COUNT); // берем первые 5
 
@@ -166,10 +187,6 @@
     clearPins();
     similarListElement.appendChild(fragment);
   };
-
-  // housingTypeFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
-  // housingRoomFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
-  // housingPriceFilter.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
   mapFilters.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
 
