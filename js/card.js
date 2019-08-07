@@ -166,16 +166,6 @@
     window.pin.mapPins.insertAdjacentElement('afterend', cardElement);
   };
 
-  // var renderCards = function (cards) {
-  //   var fragment = document.createDocumentFragment();
-  //
-  //   cards.forEach(function (card) {
-  //     fragment.appendChild(renderCard(card));
-  //   });
-  //
-  //   window.pin.mapPins.insertAdjacentElement('afterend', fragment);
-  // };
-
   window.card = {
     onRender: renderCard,
     removeCard: removeCard,

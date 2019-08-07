@@ -8,7 +8,6 @@
   var avatarDefault = avatarPreview.src;
   var imageUploadChooser = document.querySelector('.ad-form__upload input[type=file]');
   var imageUploadPreview = document.querySelector('.ad-form__photo');
-  var isAttachedFiles = true;
 
   avatarChooser.addEventListener('change', function () {
     var file = avatarChooser.files[0];

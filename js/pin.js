@@ -5,19 +5,11 @@
 
   var similarListElement = document.querySelector('.map__pins');
   var mapFilters = document.querySelector('.map__filters');
-  var housingTypeFilter = document.querySelector('#housing-type');
-  var housingPriceFilter = document.querySelector('#housing-price');
-  var housingRoomFilter = document.querySelector('#housing-rooms');
-  var housingGuestFilter = document.querySelector('#housing-guests');
-  var housingFeatureFilter = document.querySelector('#housing-features');
-
-  // фильтры удобств
-  var filterWifi = mapFilters.querySelector('#filter-wifi');
-  var filterDishwasher = mapFilters.querySelector('#filter-dishwasher');
-  var filterParking = mapFilters.querySelector('#filter-parking');
-  var filterWasher = mapFilters.querySelector('#filter-washer');
-  var filterElevator = mapFilters.querySelector('#filter-elevator');
-  var filterConditioner = mapFilters.querySelector('#filter-conditioner');
+  var housingTypeFilter = mapFilters.querySelector('#housing-type');
+  var housingPriceFilter = mapFilters.querySelector('#housing-price');
+  var housingRoomFilter = mapFilters.querySelector('#housing-rooms');
+  var housingGuestFilter = mapFilters.querySelector('#housing-guests');
+  var housingFeatureFilter = mapFilters.querySelector('#housing-features');
 
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinsCache = [];
@@ -106,10 +98,8 @@
     if ((room && room === 'any') || !room) {
       return pins;
     }
-    //debugger;
+
     return pins.filter(function (pin) {
-      // return pin.offer.rooms.toString() === room;
-      // return pin.offer.rooms === room;
       return pin.offer.rooms === parseInt(room, 10);
     });
   };
@@ -129,10 +119,8 @@
   };
 
 
-
   // функция фильтрации по удобствам
   var filterByHousingFeature = function () {
-    //debugger;
     var pins = filterByHousingGuest();
     var activeFeatures = []; // массив для хранения выбранных удобств
     var features = housingFeatureFilter.querySelectorAll('input[name=features]');
@@ -144,36 +132,20 @@
     });
 
     var isContains = function (where, what) {
-      what.forEach(function (it) {
-        if (where.indexOf(it) === -1) {
+      for (var i = 0; i < what.length; i++) {
+        if (where.indexOf(what[i]) === -1) {
           return false;
         }
-      });
+      }
 
       return true;
     };
 
     return pins.filter(function (pin) {
-      var hasFeature = false;
-      activeFeatures.forEach(function (activeFeature) {
-        if (pin.offer.features.some(function (dataFeature) {
-          return dataFeature === activeFeature;
-        })) {
-          hasFeature = true;
-          return pin;
-        }
-      });
+      return isContains(pin.offer.features, activeFeatures);
     });
-
-    // return pins.filter(function (pin) {
-    //   if (pin.offer.features.some(function (it) {
-    //     return it === activeFeatures[it];
-    //   })) {
-    //     return pin;
-    //   }
-    // });
   };
-  
+
   // функция отрисовки пинов на карте
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
@@ -188,7 +160,7 @@
     similarListElement.appendChild(fragment);
   };
 
-  mapFilters.addEventListener('change', renderPins); // то же самое при изменении значения фильтра
+  mapFilters.addEventListener('change', renderPins); // обработчик всей формы с фильтрами
 
   window.pin = {
     onRender: function (array) {
