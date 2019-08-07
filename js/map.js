@@ -6,7 +6,7 @@
 
   // Функция начальных координат метки в поле адреса
   var setOriginalCoordinate = function () {
-    window.form.fieldAddress.value = (window.map.MainPinOriginal.X + window.data.mainPinSize.width) + ', ' + (window.map.MainPinOriginal.Y + window.data.mainPinSize.height);
+    window.form.fieldAddress.value = (window.map.MainPinOriginal.X + Math.round(window.data.mainPinSize.width)) + ', ' + (window.map.MainPinOriginal.Y + Math.round(window.data.mainPinSize.height));
   };
 
   // Деактивация карты

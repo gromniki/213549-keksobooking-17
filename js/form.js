@@ -13,6 +13,8 @@
   var capacity = adForm.querySelector('#capacity');
   var resetBtn = adForm.querySelector('button[type=reset]');
 
+  var ROOMS_MAX_COUNT = 100;
+
   // При изменении поля select, изменять значение плэйсхолдера в поле price в соответствии с типом жилья
   var onTypesChange = function () {
     var valueType = types.value;
@@ -37,7 +39,7 @@
   var getValidityMessageCapacity = function () {
     var validityText = '';
 
-    if (room.value !== 100) {
+    if (room.value !== ROOMS_MAX_COUNT) {
       validityText = (capacity.value !== 0 && capacity.value <= room.value) ? '' : 'Укажите количество мест отличное от 0, но не более ' + room.value;
     } else {
       validityText = (capacity.value !== 0) ? 'Для выбранного количества комнат возможное количество гостей - 0' : '';
@@ -57,8 +59,8 @@
     mapFilters: mapFilters,
     fieldsetsForm: fieldsetsForm,
     setAddressValue: function (width, height) {
-      var topMainPin = parseInt(window.map.mainPin.style.top, 10) + height;
-      var leftMainPin = parseInt(window.map.mainPin.style.left, 10) + width;
+      var topMainPin = parseInt(window.map.mainPin.style.top, 10) + Math.round(height);
+      var leftMainPin = parseInt(window.map.mainPin.style.left, 10) + Math.round(width);
 
       fieldAddress.value = leftMainPin + ', ' + topMainPin;
     },
