@@ -36,7 +36,6 @@
     pinElement.style.left = pin.location.x + 'px';
     pinElement.style.top = pin.location.y + 'px';
 
-
     pinElement.addEventListener('click', function (evt) {
       evt.preventDefault();
       window.card.onRender(pin);
@@ -157,6 +156,7 @@
     });
 
     clearPins();
+    window.card.removeCard();
     similarListElement.appendChild(fragment);
   };
 
